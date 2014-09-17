@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <title>{Title}</title>
+    </head>
+    <body>
+
+        <h1>{Title}</h1>
+        <h2>{Description}</h2>
+        {block:Posts}
+              <div>
+                    {block:Quote}
+                        {Quote}
+                        {Source}
+                    {/block:Quote}
+              </div>
+              <div>
+                    {block:Photo}
+                        <img src="{PhotoURL-500}"/>
+                    {/block:Photo}
+                    <p>{Caption}</p>
+              </div>
+        {/block:Posts}
+    <script type="text/javascript">
+        $(document).ready(function(){
+            setTimeout(function() {
+                $("h1").animate({
+                  "marginLeft":"100px"
+                });
+            },1500);
+        });
+    </script>
+    </body>
+</html>
