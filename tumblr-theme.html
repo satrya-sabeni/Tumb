@@ -22,13 +22,18 @@
           margin:0 auto;
           background:#ccc;
         }
+        .container{
+          width:960px;
+          margin:0 auto;
+        }
         </style>
     </head>
     <body>
 
         <h1>{Title}</h1>
         <h2>{Description}</h2>
-        {block:Posts}
+        <div class="container">
+            {block:Posts}
                     {block:Quote}
                         <div class="quote">
                             {Quote}
@@ -48,7 +53,8 @@
                     {/block:Photo}
 
 
-        {/block:Posts}
+            {/block:Posts}
+        </div>
     <script type="text/javascript">
         /*$(document).ready(function(){
             setTimeout(function() {
