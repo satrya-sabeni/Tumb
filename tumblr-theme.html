@@ -5,56 +5,55 @@
         <title>{Title}</title>
 
         <style>
-        .quote{
-          width:280px;
-          padding:10px;
+        * {
+          -webkit-box-sizing: border-box;
+             -moz-box-sizing: border-box;
+                  box-sizing: border-box;
         }
-        .photo{
-          width:300px;
-          background:#eeeeee;
-        }
-        .photo-caption{
-          width:280px;
-          margin:0 auto 20px;
-        }
-        .photo-caption blockquote{
-          width:250;
-          margin:0 auto;
-          background:#ccc;
-        }
-        .container{
-          width:960px;
+
+        body { font-family: sans-serif; }
+
+        .masonry {
+          background: #EEE;
+          max-width: 960px;
           margin:0 auto;
         }
+
+        .masonry .item {
+          width:  300px;
+          height: 60px;
+          float: left;
+          background: #D26;
+          margin:10px;
+        }
+
+        .item.w2 { width:  300px; }
+        .item.w3 { width:  300px; }
+        .item.w4 { width:  300px; }
+
+        .item.h2 { height: 300px; }
+        .item.h3 { height: 300px; }
+        .item.h4 { height: 300px; }
         </style>
     </head>
     <body>
 
         <h1>{Title}</h1>
         <h2>{Description}</h2>
-        <div class="container">
-            {block:Posts}
-                    {block:Quote}
-                        <div class="quote">
-                            {Quote}
-                            {Source}
-                        </div>
-                    {/block:Quote}
-
-                    {block:Photo}
-                        <div class="photo">
-                            <img width="300" src="{PhotoURL-400}"/>
-                                <div class="photo-caption">
-                                {block:Caption}
-                                    {Caption}
-                                {/block:Caption}
-                                </div>
-                        </div>
-                    {/block:Photo}
-
-
-            {/block:Posts}
+        <div class="masonry js-masonry">
+          <div class="item"></div>
+          <div class="item w2 h2"></div>
+          <div class="item h3"></div>
+          <div class="item h2"></div>
+          <div class="item w3"></div>
+          <div class="item"></div>
+          <div class="item"></div>
+          <div class="item h2"></div>
+          <div class="item w2 h3"></div>
+          <div class="item"></div>
+          <div class="item h2"></div>
         </div>
+    <script src="http://masonry.desandro.com/masonry.pkgd.js"></script>
     <script type="text/javascript">
         /*$(document).ready(function(){
             setTimeout(function() {
