@@ -3,7 +3,7 @@
     <head>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <title>{Title}</title>
-
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
         <style>
         * {
           -webkit-box-sizing: border-box;
@@ -14,26 +14,44 @@
         body { font-family: sans-serif; }
 
         .masonry {
-          background: #EEE;
           max-width: 960px;
           margin:0 auto;
         }
 
         .masonry .item {
           width:  300px;
-          height: 60px;
           float: left;
-          background: #D26;
+          background: #EEE;
           margin:10px;
         }
 
-        .item.w2 { width:  300px; }
-        .item.w3 { width:  300px; }
-        .item.w4 { width:  300px; }
+        .quotebox{
+          width:280px;
+          margin:20px auto;
+        }
+        .photo-caption{
+          width:280px;
+          margin:0 auto;
+          font-size:13px;
+          font-family:font-family: 'Open Sans', sans-serif;
+        }
+        div.photo-caption p.date{
+          font-size:10px;
+          width:100px;
+          float:left;
+        }
+        .like_and_reblog_buttons {
+          border: 1px solid #e8e8e8;
+          border-radius: 3px;
+          list-style: none;
+        }
 
-        .item.h2 { height: 300px; }
-        .item.h3 { height: 300px; }
-        .item.h4 { height: 300px; }
+        .like_and_reblog_buttons li {
+          float: right;
+          margin: 0;
+          padding: 7px 5px;
+          height: 20px;
+        }
         </style>
     </head>
     <body>
@@ -41,27 +59,42 @@
         <h1>{Title}</h1>
         <h2>{Description}</h2>
         <div class="masonry js-masonry">
-          <div class="item"></div>
-          <div class="item w2 h2"></div>
-          <div class="item h3"></div>
-          <div class="item h2"></div>
-          <div class="item w3"></div>
-          <div class="item"></div>
-          <div class="item"></div>
-          <div class="item h2"></div>
-          <div class="item w2 h3"></div>
-          <div class="item"></div>
-          <div class="item h2"></div>
+            {block:Posts}
+                {block:Quote}
+                    <div class="item">
+                          <div class="quotebox">
+                              {Quote}
+                          </div>
+                    </div>
+                {/block:Quote}
+
+                {block:Photo}
+                    <div class="item">
+                        <img width="300" src="{PhotoURL-400}"/>
+                            <div class="photo-caption">
+                                {Caption}
+                                {block:Date}
+                                    <p class="date">{Year} {ShortMonth} {DayOfMonth}{DayOfMonthSuffix}</p>
+                                {/block:Date}
+                                <ul class="like_and_reblog_buttons">
+                                    <li>{ReblogButton}</li>
+                                    <li>{LikeButton}</li>
+                                </ul>
+                            </div>
+                    </div>
+                {/block:Photo}
+            {/block:Posts}
         </div>
     <script src="http://masonry.desandro.com/masonry.pkgd.js"></script>
+    <script src="http://imagesloaded.desandro.com/imagesloaded.pkgd.js"></script>
     <script type="text/javascript">
-        /*$(document).ready(function(){
-            setTimeout(function() {
-                $("h1").animate({
-                  "marginLeft":"100px"
+        ( function( $ ) {
+            var $container = $('#js-masonry');
+            //layout Masonry again after all images have loaded
+                $container.imagesLoaded( function() {
+                    $container.masonry();
                 });
-            },1500);
-        });*/
+            })( jQuery );
     </script>
     </body>
 </html>
