@@ -3,33 +3,60 @@
     <head>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <title>{Title}</title>
+
+        <style>
+        .quote{
+          width:280px;
+          padding:10px;
+        }
+        .photo{
+          width:300px;
+          background:#eeeeee;
+        }
+        .photo-caption{
+          width:280px;
+          margin:0 auto 20px;
+        }
+        .photo-caption blockquote{
+          width:250;
+          margin:0 auto;
+          background:#ccc;
+        }
+        </style>
     </head>
     <body>
 
         <h1>{Title}</h1>
         <h2>{Description}</h2>
         {block:Posts}
-              <div>
                     {block:Quote}
-                        {Quote}
-                        {Source}
+                        <div class="quote">
+                            {Quote}
+                            {Source}
+                        </div>
                     {/block:Quote}
-              </div>
-              <div>
+
                     {block:Photo}
-                        <img src="{PhotoURL-500}"/>
+                        <div class="photo">
+                            <img width="300" src="{PhotoURL-400}"/>
+                                <div class="photo-caption">
+                                {block:Caption}
+                                    {Caption}
+                                {/block:Caption}
+                                </div>
+                        </div>
                     {/block:Photo}
-                    <p>{Caption}</p>
-              </div>
+
+
         {/block:Posts}
     <script type="text/javascript">
-        $(document).ready(function(){
+        /*$(document).ready(function(){
             setTimeout(function() {
                 $("h1").animate({
                   "marginLeft":"100px"
                 });
             },1500);
-        });
+        });*/
     </script>
     </body>
 </html>
