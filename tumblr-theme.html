@@ -3,66 +3,145 @@
     <head>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <title>{Title}</title>
-
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Dorsa' rel='stylesheet' type='text/css'>
         <style>
-        .quote{
-          width:280px;
-          padding:10px;
+        * {
+          -webkit-box-sizing: border-box;
+             -moz-box-sizing: border-box;
+                  box-sizing: border-box;
         }
-        .photo{
-          width:300px;
-          background:#eeeeee;
+
+        body {
+          font-family: sans-serif;
+          margin:0;
+        }
+
+        .masonry {
+          max-width: 930px;
+          margin:60px auto;
+        }
+
+        .masonry .item {
+          width:  300px;
+          float: left;
+          background: #252525;
+          margin:5px;
+          color:#eeeeee;
+          /*-webkit-border-radius: 4px;
+          -moz-border-radius: 4px;
+          border-radius: 4px;*/
+        }
+        .masonry .item .intro{
+          background:#252525;
+        }
+        .quotebox{
+          width:280px;
+          margin:20px auto;
+          font-family: 'Dorsa', sans-serif;
+          font-size:30px;
+          letter-spacing:1px;
         }
         .photo-caption{
           width:280px;
-          margin:0 auto 20px;
-        }
-        .photo-caption blockquote{
-          width:250;
           margin:0 auto;
-          background:#ccc;
+          font-size:13px;
+          font-family: 'Open Sans', sans-serif;
         }
-        .container{
-          width:960px;
+        .photoImg{
+        vertical-align:top;
+        }
+        span.date{
+          font-size:10px;
+          width:90px;
+          float:left;
+          font-family: 'Arial';
+          position:absolute;
+          background:#1b1b1b;
+          text-align:center;
+          bottom:0px;
+          height:14px;
+          padding-top:1px;
+        }
+        .like_and_reblog_buttons {
+          list-style: none;
+          float:right;
+          width:150px;
+          margin:5px 0;
+          position:absolute;
+          bottom:10px;
+          left:140px;
+        }
+
+        .like_and_reblog_buttons li {
+          float: right;
+          margin: 0;
+          padding: 0px 7px 5px;
+          height: 20px;
+        }
+        .photoImg{
+          /*-webkit-border-top-left-radius: 4px;
+          -webkit-border-top-right-radius: 4px;
+          -moz-border-radius-topleft: 4px;
+          -moz-border-radius-topright: 4px;
+          border-top-left-radius: 4px;
+          border-top-right-radius: 4px;*/
+        }
+        .introBox{
+          width:280px;
           margin:0 auto;
+          color:#fff;
         }
+        .introBox h1 {
+          font-size:20px;
+        }
+        .introBox h2 {
+          font-size:15px;
+        }
+
         </style>
     </head>
     <body>
-
-        <h1>{Title}</h1>
-        <h2>{Description}</h2>
-        <div class="container">
+        <div class="masonry js-masonry">
+            <div class="item intro">
+                <div class="introBox">
+                    <h1>{Title}</h1>
+                    <h2>{Description}</h2>
+                </div>
+            </div>
             {block:Posts}
-                    {block:Quote}
-                        <div class="quote">
-                            {Quote}
-                            {Source}
-                        </div>
-                    {/block:Quote}
+                {block:Quote}
+                    <div class="item">
+                          <div class="quotebox">
+                              "{Quote}"
+                          </div>
+                    </div>
+                {/block:Quote}
 
-                    {block:Photo}
-                        <div class="photo">
-                            <img width="300" src="{PhotoURL-400}"/>
-                                <div class="photo-caption">
-                                {block:Caption}
-                                    {Caption}
-                                {/block:Caption}
-                                </div>
-                        </div>
-                    {/block:Photo}
-
-
+                {block:Photo}
+                    <div class="item">
+                        <img width="300" src="{PhotoURL-400}" class="photoImg"/>
+                        {block:Date}
+                                    <span class="date">{Year} {ShortMonth} {DayOfMonth}{DayOfMonthSuffix}</p>
+                        {/block:Date}
+                        <ul class="like_and_reblog_buttons">
+                                <li>{ReblogButton}</li>
+                                <li>{LikeButton}</li>
+                        </ul>
+                    </div>
+                {/block:Photo}
             {/block:Posts}
         </div>
+    <script src="http://masonry.desandro.com/masonry.pkgd.js"></script>
+    <script src="http://imagesloaded.desandro.com/imagesloaded.pkgd.js"></script>
     <script type="text/javascript">
-        /*$(document).ready(function(){
-            setTimeout(function() {
-                $("h1").animate({
-                  "marginLeft":"100px"
+        ( function( $ ) {
+            var $container = $('#js-masonry');
+            //layout Masonry again after all images have loaded
+                $container.imagesLoaded( function() {
+                    $container.masonry();
                 });
-            },1500);
-        });*/
+            })( jQuery );
     </script>
     </body>
 </html>
