@@ -3,8 +3,6 @@
     <head>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <title>{Title}</title>
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Dorsa' rel='stylesheet' type='text/css'>
         <style>
         * {
           -webkit-box-sizing: border-box;
@@ -18,15 +16,15 @@
         }
 
         .masonry {
-          max-width: 930px;
+          max-width: 928px;
           margin:60px auto;
         }
 
         .masonry .item {
-          width:  300px;
+          width:  450px;
           float: left;
           background: #252525;
-          margin:5px;
+          margin:7px;
           color:#eeeeee;
           /*-webkit-border-radius: 4px;
           -moz-border-radius: 4px;
@@ -59,9 +57,15 @@
           position:absolute;
           background:#1b1b1b;
           text-align:center;
-          bottom:0px;
+          top:38px;
           height:14px;
           padding-top:1px;
+          right:-38px;
+
+          -webkit-transform: rotate(-90deg);
+          -moz-transform: rotate(-90deg);
+          -ms-transform: rotate(-90deg);
+          -o-transform: rotate(-90deg);
         }
         .like_and_reblog_buttons {
           list-style: none;
@@ -69,24 +73,20 @@
           width:150px;
           margin:5px 0;
           position:absolute;
-          bottom:10px;
+          bottom:50px;
           left:140px;
+          padding-left:35px;
         }
 
         .like_and_reblog_buttons li {
-          float: right;
+          float: left;
           margin: 0;
-          padding: 0px 7px 5px;
+          padding: 0px 15px 5px;
           height: 20px;
         }
         .photoImg{
-          /*-webkit-border-top-left-radius: 4px;
-          -webkit-border-top-right-radius: 4px;
-          -moz-border-radius-topleft: 4px;
-          -moz-border-radius-topright: 4px;
-          border-top-left-radius: 4px;
-          border-top-right-radius: 4px;*/
         }
+
         .introBox{
           width:280px;
           margin:0 auto;
@@ -103,12 +103,6 @@
     </head>
     <body>
         <div class="masonry js-masonry">
-            <div class="item intro">
-                <div class="introBox">
-                    <h1>{Title}</h1>
-                    <h2>{Description}</h2>
-                </div>
-            </div>
             {block:Posts}
                 {block:Quote}
                     <div class="item">
@@ -120,9 +114,9 @@
 
                 {block:Photo}
                     <div class="item">
-                        <img width="300" src="{PhotoURL-400}" class="photoImg"/>
+                        <img width="450" src="{PhotoURL-500}" class="photoImg"/>
                         {block:Date}
-                                    <span class="date">{Year} {ShortMonth} {DayOfMonth}{DayOfMonthSuffix}</p>
+                                    <span class="date">{Year} {ShortMonth} {DayOfMonth}{DayOfMonthSuffix}</span>
                         {/block:Date}
                         <ul class="like_and_reblog_buttons">
                                 <li>{ReblogButton}</li>
@@ -135,6 +129,7 @@
     <script src="http://masonry.desandro.com/masonry.pkgd.js"></script>
     <script src="http://imagesloaded.desandro.com/imagesloaded.pkgd.js"></script>
     <script type="text/javascript">
+      $(document).ready(function(){
         ( function( $ ) {
             var $container = $('#js-masonry');
             //layout Masonry again after all images have loaded
@@ -142,6 +137,11 @@
                     $container.masonry();
                 });
             })( jQuery );
+
+            /*$('.photoImg').hover(function(){
+                $('.photoImg').fadeTo(500,0.5);
+            });*/
+        });
     </script>
     </body>
 </html>
