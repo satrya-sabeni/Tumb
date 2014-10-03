@@ -33,7 +33,7 @@
     <link rel="shortcut icon" href="{Favicon}">
     <link rel="alternate" type="application/rss+xml" href="{RSS}">
     <link href="http://static.tumblr.com/wgijwsy/k1Hm9ei8b/normalize.css" rel="stylesheet" type="text/css" />
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400,300,600' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,600italic,400,300,600' rel='stylesheet' type='text/css'>
     <style type="text/css">
     /*Basic styles*/
     ::-moz-selection {
@@ -61,10 +61,14 @@
         text-decoration: none;
     }
     blockquote {
-        background: rgba(0, 0, 0, 0.2);
-        border-left: 10px solid rgba(0, 0, 0, 0.2);
+        background: #E3E3E3;
         margin: 0;
-        padding: 2%;
+        padding: 10px 0;
+        font-style:italic;
+        font-weight:400;
+        font-size:1.2em;
+        color:#454141;
+        letter-spacing:0.5px;
     }
     iframe, img, embed, object, video {
         max-width: 100%;
@@ -73,46 +77,94 @@
         height: auto;
         width: auto;
     }
+    h1{
+      font-family:"open Sans",sans-serif;
+      font-weight:300;
+      text-transform: uppercase;
+      letter-spacing:5px;
+      font-size:1.7em;
+      color:#9A9999;
+    }
     /*Masthead*/
     #masthead {
         background: {color:Masthead background} url('{image:Masthead}');
-        padding: 3%;
         color: {color:Masthead text};
+        margin-bottom:7px;
     }
     #masthead a {
-        color: {color:Masthead links};
+        color:#9A9999 ; /*{color:Masthead links};*/
     }
     nav li {
         display: inline;
     }
+
+    #header{
+      width:914px;
+      margin:0 auto;
+      padding:30px 0;
+      border-bottom:rgba(154, 153, 153,0.4) dotted 1px;
+    }
+
+    #header p{
+      color:#ADADAD;
+      letter-spacing:2px;
+    }
     /*Article*/
     article {
         background: {color:Post color};
-        margin: 7px/*{text:Post margin}*/;
+        margin: 7px;/*{text:Post margin}*/
         padding: 0px;
-        width: 450px/*{text:Post width}*/;
+        width: 450px;/*{text:Post width}*/
+        background: #000;
+
     }
+    .photo {
+      line-height:0;
+    }
+
     span.date{
       font-size:10px;
       width:90px;
       float:left;
-      font-family: 'Arial';
+      font-family: 'Open Sans', sans-serif;
       position:absolute;
       background:#1b1b1b;
       text-align:center;
-      top:38px;
-      height:14px;
+      top:36px;
+      height:17px;
       padding-top:1px;
-      right:-38px;
+      right:-36px;
+      font-weight:300;
+      letter-spacing:2px;
+      color:#8F8F8F;
+      line-height:16px;
 
       -webkit-transform: rotate(-90deg);
       -moz-transform: rotate(-90deg);
       -ms-transform: rotate(-90deg);
       -o-transform: rotate(-90deg);
     }
+
+    img{
+    opacity: 1;
+    transition: opacity 0.4s ease-out;
+    -moz-transition: opacity 0.4s ease-out;
+    -webkit-transition: opacity 0.4s;
+    -o-transition: opacity 0.4s ease-out;
+    }
+
+    img:hover{
+      opacity:0.2;
+    }
+
     .chat span {
         float: left;
         margin-right: 1%;
+    }
+
+    .quote{
+      background:#E3E3E3;
+      padding:20px 35px 30px;
     }
     /*Metadata*/
     .metadata {
@@ -149,7 +201,7 @@
             {block:IfMastheadPortrait}
             <img src="{PortraitURL-128}"/>
             {/block:IfMastheadPortrait}
-            <h1><a href="/" title="{lang:Home}">{Title}</a></h1>
+            <h1>{Title}</h1>
             {block:Description}
             <p>{Description}</p>
             {block:Description}
@@ -183,7 +235,7 @@
     {block:Posts}
     <article>
     <!--Metadata: date, note count, content source-->
-    <header class="metadata">
+    <!--<header class="metadata">-->
         <!--{block:Date} <a href="{Permalink}"> <time datetime="{Year}-{MonthNumberWithZero}-{DayOfMonthWithZero}">{DayOfMonth} {Month} {Year}</time> </a> {/block:Date}-->
 
         <!--{block:NoteCount} <a class="notecount" href="{Permalink}#notes">{NoteCountWithLabel}</a> {/block:NoteCount}-->
@@ -194,7 +246,7 @@
         {block:SourceLogo}<img src="{BlackLogoURL}" width="{LogoWidth}"height="{LogoHeight}" alt="{SourceTitle}" />{/block:SourceLogo}</a>
         </div>
         {/block:ContentSource}-->
-    </header>
+    <!--</header>-->
     <!--Unique code for each post type-->
     {block:Text}
     <div class="text">
@@ -204,9 +256,9 @@
 
     {block:Photo}
     <div class="photo">
-        {LinkOpenTag}<img src="{PhotoURL-500}" alt="{PhotoAlt}" />{LinkCloseTag}
+        <img src="{PhotoURL-500}" alt="{PhotoAlt}" />
         {block:Date}
-                    <span class="date">{Year} {ShortMonth} {DayOfMonth}{DayOfMonthSuffix}</span>
+                    <span class="date">{DayOfMonthWithZero} {MonthNumberWithZero} {ShortYear}</span>
         {/block:Date}
     {/block:Photo}
 
@@ -219,8 +271,11 @@
 
     {block:Quote}
     <div class="quote">
-        <blockquote>{Quote}</blockquote>
+        <blockquote>"{Quote}"</blockquote>
         {block:Source}<cite> {Source} </cite>{/block:Source}
+        {block:Date}
+                    <span class="date">{DayOfMonthWithZero} {MonthNumberWithZero} {ShortYear}</span>
+        {/block:Date}
     {/block:Quote}
 
     {block:Link}

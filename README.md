@@ -12,4 +12,5 @@
 
 **30.09.2014** - Base structure is set, Masonry load needs to be fixed now.
 
-http://stackoverflow.com/questions/7476649/jquery-masonry-breaksstacks-images-in-chrome-safari-but-only-on-first-load
+**03.10.2014** - Masonry load with webfonts and images fixed now,  need menu insert
+ 
