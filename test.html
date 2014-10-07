@@ -120,6 +120,7 @@
     }
     .photo {
       line-height:0;
+      background:#000;
     }
 
     span.date{
@@ -145,16 +146,8 @@
       -o-transform: rotate(-90deg);
     }
 
-    img{
-    opacity: 1;
-    transition: opacity 0.4s ease-out;
-    -moz-transition: opacity 0.4s ease-out;
-    -webkit-transition: opacity 0.4s;
-    -o-transition: opacity 0.4s ease-out;
-    }
-
-    img:hover{
-      opacity:0.2;
+    span.year{
+      color:#5F5F5F;
     }
 
     .chat span {
@@ -180,14 +173,42 @@
         list-style-image: none;
         margin: 0;
         padding: 0;
+        position:relative;
+        bottom:125px;
+        width:300px;
+        margin:0 auto;
+        text-align:center;
+        display:none
     }
     #tags li {
-        float: left;
-        margin-right: 1%;
+        display:inline;
+        margin:0 20px;
+        color:#ccc;
+        letter-spacing:1.5px;
+        font-weight:300;
     }
     .notes {
         clear: both;
         padding: 0;
+    }
+
+    .like_and_reblog_buttons {
+      list-style: none;
+      float:right;
+      width:150px;
+      margin:5px 0;
+      position:absolute;
+      bottom:50px;
+      left:140px;
+      padding-left:35px;
+      display:none;
+    }
+
+    .like_and_reblog_buttons li {
+      float: left;
+      margin: 0;
+      padding: 0px 15px 5px;
+      height: 20px;
     }
     /*Custom CSS*/
     {CustomCSS}
@@ -258,8 +279,19 @@
     <div class="photo">
         <img src="{PhotoURL-500}" alt="{PhotoAlt}" />
         {block:Date}
-                    <span class="date">{DayOfMonthWithZero} {MonthNumberWithZero} {ShortYear}</span>
+                    <span class="date">{DayOfMonthWithZero} {MonthNumberWithZero} <span class="year">{ShortYear}</span></span>
         {/block:Date}
+        {block:HasTags}
+          <ul id="tags">
+            {block:Tags}
+              <li>{Tag}</li>
+            {/block:Tags}
+        </ul>
+        {/block:HasTags}
+        <ul class="like_and_reblog_buttons">
+                <li>{ReblogButton}</li>
+                <li>{LikeButton}</li>
+        </ul>
     {/block:Photo}
 
     {block:Photoset}
@@ -373,6 +405,7 @@
               }
         );
         {/block:IfInfiniteScroll}
+
         $tumblelog.imagesLoaded( function(){
           $tumblelog.masonry({
             columnWidth: function( containerWidth ) {
@@ -381,6 +414,25 @@
           });
         });
     })();
+
+    $(document).ready(function(){
+      $('.photo').hover(
+        function(){
+        $(this).children("ul").fadeIn();
+        },
+        function(){
+        $(this).children("ul").fadeOut();
+        }
+      );
+      $('.photo').hover(
+        function(){
+        $(this).children("img").fadeTo(300,0.15);
+        },
+        function(){
+        $(this).children("img").fadeTo(300,1);
+        }
+      )
+    });
     </script>
     <!--For users adding Google Analytics ID-->
     <script>
