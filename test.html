@@ -343,7 +343,7 @@
     <!--Content holder-->
     <div id="content">
     {block:Posts}
-    <article>
+
     <!--Metadata: date, note count, content source-->
     <!--<header class="metadata">-->
         <!--{block:Date} <a href="{Permalink}"> <time datetime="{Year}-{MonthNumberWithZero}-{DayOfMonthWithZero}">{DayOfMonth} {Month} {Year}</time> </a> {/block:Date}-->
@@ -359,118 +359,134 @@
     <!--</header>-->
     <!--Unique code for each post type-->
     {block:Text}
+    <article>
     <div class="text">
         {block:Title}<h1 class="title"><a href="{Permalink}">{Title}</a></h1>{/block:Title}
         {Body}
+    </div>
+    </article>
     {/block:Text}
 
     {block:Photo}
-    <div class="photo">
-        {block:IndexPage}
-        <a href="{Permalink}"><img src="{PhotoURL-500}" alt="{PhotoAlt}"/></a>
-        {/block:IndexPage}
+      <article>
+        <div class="photo">
+            {block:IndexPage}
+            <a href="{Permalink}"><img src="{PhotoURL-500}" alt="{PhotoAlt}"/></a>
+            {/block:IndexPage}
 
-        {block:Date}
-                    <span class="date">{DayOfMonthWithZero} {MonthNumberWithZero} <span class="year">{ShortYear}</span></span>
-        {/block:Date}
+            {block:Date}
+                        <span class="date">{DayOfMonthWithZero} {MonthNumberWithZero} <span class="year">{ShortYear}</span></span>
+            {/block:Date}
 
-        {block:IndexPage}
-        {block:HasTags}
-          <ul id="tags">
-            {block:Tags}
-              <li>{Tag}</li>
-            {/block:Tags}
-          </ul>
-        {/block:HasTags}
+            {block:IndexPage}
+            {block:HasTags}
+              <ul id="tags">
+                {block:Tags}
+                  <li>{Tag}</li>
+                {/block:Tags}
+              </ul>
+            {/block:HasTags}
 
-        <ul class="like_and_reblog_buttons">
-                <li>{ReblogButton}</li>
-                <li>{LikeButton}</li>
-        </ul>
-        {/block:IndexPage}
+            <ul class="like_and_reblog_buttons">
+                    <li>{ReblogButton}</li>
+                    <li>{LikeButton}</li>
+            </ul>
+            {/block:IndexPage}
 
-        {block:PermalinkPage}
-        <img src="{PhotoURL-1280}" alt="{PhotoAlt}"/>
-        <div class="contentInfo">tes</div>
-        {/block:PermalinkPage}
+            {block:PermalinkPage}
+            <img src="{PhotoURL-1280}" alt="{PhotoAlt}"/>
+            {/block:PermalinkPage}
+        </div>
+      </article>
+      {block:PermalinkPage}
+        <div class="contentInfo">
+            {block:HasTags}
+              <ul id="tags">
+                {block:Tags}
+                  <li>{Tag}</li>
+                {/block:Tags}
+              </ul>
+            {/block:HasTags}
+        </div>
+      {/block:PermalinkPage}
     {/block:Photo}
 
     {block:Photoset}
+    <article>
     <div class="photoset">
         {block:IndexPage}{Photoset-250}{/block:IndexPage}
         <!--{block:PermalinkPage}{Photoset-700}{/block:PermalinkPage}-->
         {block:Caption}{Caption}{/block:Caption}
+    </div>
+    </article>
     {/block:Photoset}
 
     {block:Quote}
+    <article>
     <div class="quote">
         <blockquote>"{Quote}"</blockquote>
         {block:Source}<cite> {Source} </cite>{/block:Source}
         {block:Date}
                     <span class="date">{DayOfMonthWithZero} {MonthNumberWithZero} {ShortYear}</span>
         {/block:Date}
+    </div>
+  </article>
     {/block:Quote}
 
     {block:Link}
+    <article>
     <div class="link">
         <h1 class="title"><a href="{URL}">{Name}</a></h1>
         {block:Description}{Description}{/block:Description}
+    </div>
+  </article>
     {/block:Link}
 
     {block:Chat}
+    <article>
     <div class="chat">
         <ul>
             {block:Lines}<li class="{Alt}">{block:Label}<span class="label">{Label}</span>{/block:Label}<p> {Line} </p></li>{/block:Lines}
         </ul>
+    </div>
+  </article>
     {/block:Chat}
 
     {block:Audio}
+    <article>
     <div class="audio">
         {block:TrackName}<h1 class="title"><a href="{Permalink}">{TrackName}</a></h1>{/block:TrackName}
         <div class="albumart">{block:AlbumArt}<img src="{AlbumArtURL}" width="500" height="500"/>{/block:AlbumArt}</div>
         <div class="player">{AudioPlayerBlack}</div>
         {block:AudioEmbed}{AudioEmbed}{/block:AudioEmbed}
         {block:Caption}{Caption}{/block:Caption}
+    </div>
+  </article>
     {/block:Audio}
 
     {block:Video}
+    <article>
     <div class="video">
         <div class="video-player">{Video-500}</div>
         {block:Caption}{Caption}{/block:Caption}
+    </div>
+    <article>
     {/block:Video}
 
     {block:Answer}
+    <article>
     <div class="answer">
         <h1 class="title">{Question}</h1>
         <div class="user"><img src="{AskerPortraitURL-96}"/><p>{Asker}</p></div>
         {Answer}
-    {/block:Answer}
     </div>
+    <article>
+    {/block:Answer}
     <!--Post footer (tags and notes) on displayed on permalink pages-->
-  </article><!--Close of article-->
+  <!--Close of article-->
 
     {/block:Posts}
     <!--permalinkPage sideblock-->
-    {block:PermalinkPage}
-    {block:Caption} {Caption}{/block:Caption}
-    <div class="sidebar">
-      {block:PostNotes}
-        {PostNotes}
-      {/block:PostNotes}
-    </div>
-
-    <div class="contentInfo">
-      {block:HasTags}
-        <ul id="tags">
-          {block:Tags}
-            <li>{Tag}</li>
-          {/block:Tags}
-        </ul>
-      {/block:HasTags}
-      {block:Caption} {Caption}{/block:Caption}
-    </div>
-
-    {/block:PermalinkPage}
 
   </div><!--Close of contentdiv-->
 
