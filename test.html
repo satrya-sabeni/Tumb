@@ -114,13 +114,23 @@
         background: {color:Post color};
         margin: 7px;/*{text:Post margin}*/
         padding: 0px;
-        width: 450px;/*{text:Post width}*/
         background: #000;
+
+        {block:IndexPage}
+        width: 450px;/*{text:Post width}*/
+        {/block:IndexPage}
+
+        {block:Permalink}
+        width:600px;
+        {/block:Permalink}
 
     }
     .photo {
       line-height:0;
       background:#000;
+      {block:Permalink}
+      width:600px;
+      {/block:Permalink}
     }
 
     span.date{
@@ -131,19 +141,31 @@
       position:absolute;
       background:#1b1b1b;
       text-align:center;
-      top:36px;
       height:17px;
       padding-top:1px;
-      right:-36px;
       font-weight:300;
       letter-spacing:2px;
       color:#8F8F8F;
       line-height:16px;
 
+      {block:IndexPage}
+      right:-36px;
+      top:36px;
       -webkit-transform: rotate(-90deg);
       -moz-transform: rotate(-90deg);
       -ms-transform: rotate(-90deg);
       -o-transform: rotate(-90deg);
+      {/block:IndexPage}
+
+      {block:Permalink}
+      right:0;
+      top:auto;
+      bottom:0;
+      -webkit-transform: rotate(-0deg);
+      -moz-transform: rotate(-0deg);
+      -ms-transform: rotate(-0deg);
+      -o-transform: rotate(-0deg);
+      {/block:Permalink}
     }
 
     span.year{
@@ -162,6 +184,32 @@
 
     .search{
       float:right;
+      {block:Permalink}
+      display:none;
+      {/block:Permalink}
+    }
+    .search-button{
+      border:0;
+      background:#000;
+      letter-spacing:1px;
+      color:#ccc;
+      font-weight:300;
+      {block:Permalink}
+      display:none;
+      {/block:Permalink}
+    }
+
+    .sidebar{
+      /*left:auto !important;*/
+      right:0;
+      width:300px;
+      margin:7px 0;
+    }
+    .contentInfo{
+      width:600px;
+      height:200px;
+      background:#efefef;
+      margin:7px;
     }
     /*Metadata*/
     .metadata {
@@ -182,13 +230,14 @@
         width:300px;
         margin:0 auto;
         text-align:center;
-        display:none;
         height:0px;
+        {block:IndexPage}
+        display:none;
+        {/block:IndexPage}
     }
     #tags li {
         display:inline;
         margin:0 20px;
-        color:#ccc;
         letter-spacing:1.5px;
         font-weight:300;
         background:url('http://static.tumblr.com/aagplp7/VAXnd2wu8/label.png') no-repeat;
@@ -198,10 +247,31 @@
         line-height:19px;
         margin-bottom:5px;
         font-size:10px;
+        {block:IndexPage}
+        color:#ccc;
+        {/block:IndexPage}
+
+        {block:Permalink}
+        color:#1d1818;
+        {/block:Permalink}
     }
     .notes {
         clear: both;
-        padding: 0;
+        padding: 0 10px;
+        font-size:11px;
+        list-style-type:none;
+    }
+    .notes li{
+      margin-top:5px;
+    }
+    .notes li a img{
+        margin-right:5px;
+    }
+    .notes li span{
+        vertical-align:top;
+    }
+    .notes li span a{
+        vertical-align:top;
     }
 
     .like_and_reblog_buttons {
@@ -242,7 +312,7 @@
             {block:IfMastheadSearch}
             <form action="/search" method="get" class="search">
                 <input type="text" name="q" value="{SearchQuery}"/>
-                <input type="submit" value="{lang:Search}"/>
+                <input type="submit" value="{lang:Search}" class="search-button"/>
             </form>
             {/block:IfMastheadSearch}
         </div>
@@ -296,27 +366,39 @@
 
     {block:Photo}
     <div class="photo">
-        <img src="{PhotoURL-500}" alt="{PhotoAlt}" />
+        {block:IndexPage}
+        <a href="{Permalink}"><img src="{PhotoURL-500}" alt="{PhotoAlt}"/></a>
+        {/block:IndexPage}
+
         {block:Date}
                     <span class="date">{DayOfMonthWithZero} {MonthNumberWithZero} <span class="year">{ShortYear}</span></span>
         {/block:Date}
+
+        {block:IndexPage}
         {block:HasTags}
           <ul id="tags">
             {block:Tags}
               <li>{Tag}</li>
             {/block:Tags}
-        </ul>
+          </ul>
         {/block:HasTags}
+
         <ul class="like_and_reblog_buttons">
                 <li>{ReblogButton}</li>
                 <li>{LikeButton}</li>
         </ul>
+        {/block:IndexPage}
+
+        {block:PermalinkPage}
+        <img src="{PhotoURL-1280}" alt="{PhotoAlt}"/>
+        <div class="contentInfo">tes</div>
+        {/block:PermalinkPage}
     {/block:Photo}
 
     {block:Photoset}
     <div class="photoset">
         {block:IndexPage}{Photoset-250}{/block:IndexPage}
-        {block:PermalinkPage}{Photoset-700}{/block:PermalinkPage}
+        <!--{block:PermalinkPage}{Photoset-700}{/block:PermalinkPage}-->
         {block:Caption}{Caption}{/block:Caption}
     {/block:Photoset}
 
@@ -365,24 +447,33 @@
     {/block:Answer}
     </div>
     <!--Post footer (tags and notes) on displayed on permalink pages-->
-    {block:Permalink}
-    <footer class="details">
-    {block:HasTags}
-        <ul id="tags">
-            {block:Tags}<li> <a href="{TagURL}">{Tag}</a> </li>{/block:Tags}
-        </ul>
-    {/block:HasTags}
-    {block:PostNotes}
-    <div id="notes">
-        {PostNotes}
-    </div>
-    {/block:PostNotes}
-    </footer>
-    {/block:Permalink}
-     </article>
+  </article><!--Close of article-->
+
     {/block:Posts}
-    <!--Close of article-->
+    <!--permalinkPage sideblock-->
+    {block:PermalinkPage}
+    {block:Caption} {Caption}{/block:Caption}
+    <div class="sidebar">
+      {block:PostNotes}
+        {PostNotes}
+      {/block:PostNotes}
     </div>
+
+    <div class="contentInfo">
+      {block:HasTags}
+        <ul id="tags">
+          {block:Tags}
+            <li>{Tag}</li>
+          {/block:Tags}
+        </ul>
+      {/block:HasTags}
+      {block:Caption} {Caption}{/block:Caption}
+    </div>
+
+    {/block:PermalinkPage}
+
+  </div><!--Close of contentdiv-->
+
     <!--Pagination: previous/next page links-->
     {block:Pagination}
     <div class="pagination">
@@ -434,6 +525,7 @@
         });
     })();
 
+    {block:IndexPage}
     $(document).ready(function(){
       $('.photo').hover(
         function(){
@@ -445,13 +537,14 @@
       );
       $('.photo').hover(
         function(){
-        $(this).children("img").fadeTo(200,0.15);
+        $(this).children("a").children("img").fadeTo(200,0.15);
         },
         function(){
-        $(this).children("img").fadeTo(200,1);
+        $(this).children("a").children("img").fadeTo(200,1);
         }
       )
     });
+    {/block:IndexPage}
     </script>
     <!--For users adding Google Analytics ID-->
     <script>

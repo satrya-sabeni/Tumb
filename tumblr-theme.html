@@ -191,3 +191,17 @@
 
     </body>
 </html>
+
+
+<footer class="details">
+{block:HasTags}
+    <ul id="tags">
+        {block:Tags}<li> <a href="{TagURL}">{Tag}</a> </li>{/block:Tags}
+    </ul>
+{/block:HasTags}
+<!--{block:PostNotes}
+<div id="notes">
+    {PostNotes}
+</div>
+{/block:PostNotes}-->
+</footer>
