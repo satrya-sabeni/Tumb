@@ -15,3 +15,5 @@
 **03.10.2014** - Masonry load with webfonts and images fixed now,  need menu insert
 
 **06.10.2014** - Added Permalink page, tag links
+
+**10.10.2014** - Styled the posttypes:tekst,quote,link and made permalink for tekst

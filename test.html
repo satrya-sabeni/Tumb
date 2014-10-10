@@ -61,7 +61,6 @@
         text-decoration: none;
     }
     blockquote {
-        background: #E3E3E3;
         margin: 0;
         padding: 10px 0;
         font-style:italic;
@@ -88,12 +87,20 @@
         width: auto;
     }
     h1{
+      background:none;
+      margin:0 0 20px 0;
+      font-weight:300;
+      font-size:1.6em;
+      text-align:center;
+    }
+    header h1{
       font-family:"open Sans",sans-serif;
       font-weight:300;
       text-transform: uppercase;
       letter-spacing:5px;
       font-size:1.7em;
       color:#9A9999;
+      text-align:left;
     }
     /*Masthead*/
     #masthead {
@@ -188,10 +195,85 @@
     }
 
     .quote{
-      background:#E3E3E3;
-      padding:20px 35px 30px;
+      background:#FFF;
+      padding:20px 30px 30px;
+      border:1px dotted rgba(154, 153, 153, 0.4);
     }
-
+    .link{
+      background:#FFF;
+      height:100%;
+      padding:20px 30px;
+      border:1px dotted rgba(154, 153, 153, 0.4);
+    }
+    .link h1{
+      margin:0;
+      text-align:center;
+      font-family:"open Sans",sans-serif;
+      font-weight:300;
+      letter-spacing:1px;
+      font-size:1.6em;
+      color:#9A9999;
+      font-style:italic;
+      text-decoration:underline;
+    }
+    .link p{
+      text-align:center;
+      font-size:1em;
+      font-style:normal;
+      font-weight:300;
+      letter-spacing:0.5px;
+    }
+    .text{
+      background:#FFF;
+      padding:20px 30px;
+      border:1px dotted rgba(154, 153, 153, 0.4);
+    }
+    .text h1{
+      font-weight:300;
+      font-size:1.6em;
+      text-align:center;
+      margin-bottom:20px
+    }
+    .text p{
+      margin-top:25px;
+    }
+    .text p:nth-child(4){
+      border-left:1px dotted rgba(154, 153, 153, 0.4);
+      font-size:1em;
+      font-weight:300;
+      letter-spacing:0.5px;
+      margin:0 30px;
+      padding-left:20px;
+    }
+    .text p a{
+      font-style:italic;
+    }
+    .text img{
+      display:block;
+      margin:25px auto 0;
+    }
+    .text blockquote{
+      font-style:normal;
+      font-weight:300;
+      padding:0;
+    }
+    .chat{
+      background:#FFF;
+      border:1px dotted rgba(154, 153, 153, 0.4);
+      padding:20px 30px;
+    }
+    .chat ul{
+      padding:0 10px;
+    }
+    .chat ul li{
+      font-size:1em;
+      font-weight:300;
+      letter-spacing:0.5px;
+      list-style:none;
+    }
+    .chat ul li .even{
+      float:right;
+    }
     .search{
       float:right;
       {block:Permalink}
@@ -228,7 +310,7 @@
         float: right;
     }
     /*Tags and notes*/
-    #tags, nav ul, .chat ul {
+    #tags, nav ul{
         list-style: none;
         list-style-image: none;
         margin: 0;
@@ -389,12 +471,35 @@
     <!--</header>-->
     <!--Unique code for each post type-->
     {block:Text}
-    <article>
-    <div class="text">
-        {block:Title}<h1 class="title"><a href="{Permalink}">{Title}</a></h1>{/block:Title}
-        {Body}
-    </div>
-    </article>
+      <article>
+        <div class="text">
+            {block:Title}<h1 class="title"><a href="{Permalink}">{Title}</a></h1>{/block:Title}
+            {Body}
+
+            {block:Date}
+              <span class="date">{DayOfMonthWithZero} {MonthNumberWithZero} <span class="year">{ShortYear}</span></span>
+            {/block:Date}
+        </div>
+      </article>
+      {block:PermalinkPage}
+        <div class="contentInfo">
+            <div class="tagBox">
+              {block:HasTags}
+                <ul id="tags">
+                  {block:Tags}
+                    <li><a href="{TagURL}">{Tag}</a></li>
+                  {/block:Tags}
+                </ul>
+              {/block:HasTags}
+            </div>
+        </div>
+
+        <div class="sidebar">
+            {block:PostNotes}
+              {PostNotes}
+            {/block:PostNotes}
+        </div>
+      {/block:PermalinkPage}
     {/block:Text}
 
     {block:Photo}
@@ -478,18 +583,26 @@
 
     {block:Link}
     <article>
-    <div class="link">
-        <h1 class="title"><a href="{URL}">{Name}</a></h1>
-        {block:Description}{Description}{/block:Description}
-    </div>
-  </article>
+      <div class="link">
+          <h1 class="title"><a href="{URL}">www.{Host}</a></h1>
+          <p>{Name}</p>
+          {block:Description}
+            {Description}
+          {/block:Description}
+
+          {block:Date}
+            <span class="date">{DayOfMonthWithZero} {MonthNumberWithZero} <span class="year">{ShortYear}</span></span>
+          {/block:Date}
+      </div>
+    </article>
     {/block:Link}
 
     {block:Chat}
     <article>
     <div class="chat">
+        <h1>{block:Title}{Title}{/block:Title}</h1>
         <ul>
-            {block:Lines}<li class="{Alt}">{block:Label}<span class="label">{Label}</span>{/block:Label}<p> {Line} </p></li>{/block:Lines}
+            {block:Lines}<li class="{Alt}"><p><span>{block:Label} {Label} {/block:Label}</span> {Line} </p></li>{/block:Lines}
         </ul>
     </div>
   </article>
