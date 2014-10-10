@@ -70,6 +70,16 @@
         color:#454141;
         letter-spacing:0.5px;
     }
+    blockquote .perma{
+        background: none;
+        margin: 0;
+        padding: 10px 0;
+        font-style:none;
+        font-weight:400;
+        font-size:0.7em;
+        color:#454141;
+        letter-spacing:0.5px;
+    }
     iframe, img, embed, object, video {
         max-width: 100%;
     }
@@ -207,8 +217,6 @@
     }
     .contentInfo{
       width:600px;
-      height:200px;
-      background:#efefef;
       margin:7px;
     }
     /*Metadata*/
@@ -225,22 +233,24 @@
         list-style-image: none;
         margin: 0;
         padding: 0;
-        position:relative;
         bottom:160px;
-        width:300px;
         margin:0 auto;
         text-align:center;
         height:0px;
         {block:IndexPage}
+        position:relative;
         display:none;
+        width:300px;
         {/block:IndexPage}
+
+        {block:Permalink}
+        float:left;
+        {/block:Permalink}
     }
     #tags li {
         display:inline;
         margin:0 20px;
         letter-spacing:1.5px;
-        font-weight:300;
-        background:url('http://static.tumblr.com/aagplp7/VAXnd2wu8/label.png') no-repeat;
         padding-left:25px;
         display:inline-block;
         height:20px;
@@ -249,11 +259,23 @@
         font-size:10px;
         {block:IndexPage}
         color:#ccc;
+        font-weight:300;
+        background:url('http://static.tumblr.com/aagplp7/VAXnd2wu8/label.png') no-repeat;
         {/block:IndexPage}
 
         {block:Permalink}
         color:#1d1818;
+        font-weight:600;
+        background:url('http://static.tumblr.com/aagplp7/fWynd6h9j/black-label.png') no-repeat;
         {/block:Permalink}
+    }
+    .tagBox{
+      min-height:80px;
+      /*clear:both;*/
+    }
+    .caption blockquote{
+      margin:0 30px;
+      padding:20px 15px;
     }
     .notes {
         clear: both;
@@ -292,6 +314,14 @@
       padding: 0px 15px 5px;
       height: 20px;
     }
+    .photoSet{
+      width:450px;
+      clear:both;
+      background:#fff;
+    }
+    iframe.photoset {
+	    width: 450px !important;
+    }
     /*Custom CSS*/
     {CustomCSS}
     </style>
@@ -304,7 +334,7 @@
             {block:IfMastheadPortrait}
             <img src="{PortraitURL-128}"/>
             {/block:IfMastheadPortrait}
-            <h1>{Title}</h1>
+            <h1><a href="{BlogURL}">{Title}</a></h1>
             {block:Description}
             <p>{Description}</p>
             {block:Description}
@@ -394,43 +424,56 @@
             {/block:IndexPage}
 
             {block:PermalinkPage}
-            <img src="{PhotoURL-1280}" alt="{PhotoAlt}"/>
+            <img src="{PhotoURL-1280}" alt="{PhotoAlt}" style="width:600px"/>
             {/block:PermalinkPage}
         </div>
       </article>
       {block:PermalinkPage}
         <div class="contentInfo">
-            {block:HasTags}
-              <ul id="tags">
-                {block:Tags}
-                  <li>{Tag}</li>
-                {/block:Tags}
-              </ul>
-            {/block:HasTags}
+            <div class="tagBox">
+              {block:HasTags}
+                <ul id="tags">
+                  {block:Tags}
+                    <li><a href="{TagURL}">{Tag}</a></li>
+                  {/block:Tags}
+                </ul>
+              {/block:HasTags}
+            </div>
+
+            {block:Caption}
+              <div class="caption">{Caption}</div>
+            {/block:Caption}
+        </div>
+
+        <div class="sidebar">
+            {block:PostNotes}
+              {PostNotes}
+            {/block:PostNotes}
         </div>
       {/block:PermalinkPage}
     {/block:Photo}
 
+
     {block:Photoset}
     <article>
-    <div class="photoset">
-        {block:IndexPage}{Photoset-250}{/block:IndexPage}
+    <div class="photoSet">
+        {block:IndexPage}{Photoset}{/block:IndexPage}
         <!--{block:PermalinkPage}{Photoset-700}{/block:PermalinkPage}-->
-        {block:Caption}{Caption}{/block:Caption}
+        <!--{block:Caption}{Caption}{/block:Caption}-->
     </div>
     </article>
     {/block:Photoset}
 
     {block:Quote}
     <article>
-    <div class="quote">
-        <blockquote>"{Quote}"</blockquote>
-        {block:Source}<cite> {Source} </cite>{/block:Source}
-        {block:Date}
-                    <span class="date">{DayOfMonthWithZero} {MonthNumberWithZero} {ShortYear}</span>
-        {/block:Date}
-    </div>
-  </article>
+      <div class="quote">
+          <blockquote>"{Quote}"</blockquote>
+          {block:Source}<cite> {Source} </cite>{/block:Source}
+          {block:Date}
+                      <span class="date">{DayOfMonthWithZero} {MonthNumberWithZero} {ShortYear}</span>
+          {/block:Date}
+      </div>
+    </article>
     {/block:Quote}
 
     {block:Link}

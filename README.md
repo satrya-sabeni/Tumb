@@ -13,4 +13,5 @@
 **30.09.2014** - Base structure is set, Masonry load needs to be fixed now.
 
 **03.10.2014** - Masonry load with webfonts and images fixed now,  need menu insert
- 
+
+**06.10.2014** - Added Permalink page, tag links
