@@ -126,6 +126,10 @@
       color:#ADADAD;
       letter-spacing:2px;
     }
+    #header form{
+      position:relative;
+      bottom:7px;
+    }
     /*Article*/
     article {
         background: {color:Post color};
@@ -273,6 +277,17 @@
     }
     .chat ul li .even{
       float:right;
+    }
+    .audio{
+      background:#fff;
+      line-height:0;
+    }
+    .video{
+      background:#fff;
+      line-height:0;
+    }
+    .video iframe{
+      width:450px;
     }
     .search{
       float:right;
@@ -611,22 +626,19 @@
     {block:Audio}
     <article>
     <div class="audio">
-        {block:TrackName}<h1 class="title"><a href="{Permalink}">{TrackName}</a></h1>{/block:TrackName}
         <div class="albumart">{block:AlbumArt}<img src="{AlbumArtURL}" width="500" height="500"/>{/block:AlbumArt}</div>
         <div class="player">{AudioPlayerBlack}</div>
         {block:AudioEmbed}{AudioEmbed}{/block:AudioEmbed}
-        {block:Caption}{Caption}{/block:Caption}
     </div>
   </article>
     {/block:Audio}
 
     {block:Video}
     <article>
-    <div class="video">
-        <div class="video-player">{Video-500}</div>
-        {block:Caption}{Caption}{/block:Caption}
-    </div>
-    <article>
+      <div class="video">
+          {Video-500}
+      </div>
+    </article>
     {/block:Video}
 
     {block:Answer}

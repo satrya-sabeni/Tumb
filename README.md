@@ -17,3 +17,5 @@
 **06.10.2014** - Added Permalink page, tag links
 
 **10.10.2014** - Styled the posttypes:tekst,quote,link and made permalink for tekst
+
+**11.10.2014** - Added post-types:video and audio
