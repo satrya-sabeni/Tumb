@@ -19,3 +19,5 @@
 **10.10.2014** - Styled the posttypes:tekst,quote,link and made permalink for tekst
 
 **11.10.2014** - Added post-types:video and audio
+
+**13.10.2014** - Added infinite scroll
