@@ -21,3 +21,5 @@
 **11.10.2014** - Added post-types:video and audio
 
 **13.10.2014** - Added infinite scroll
+
+**14.10.2914** - Added user options such as logo input,data label, color options etc

@@ -6,26 +6,38 @@
     Base code: http:satrya-sabeni.com
     Version: 1.0
     -->
-    <meta name="color:Background" content="#369fa0" />
     <meta name="color:Body links" content="#615151" />
     <meta name="color:Body text" content="#1d1818" />
-    <meta name="color:Masthead background" content="#0a0303" />
-    <meta name="color:Masthead links" content="#b9b8b8" />
-    <meta name="color:Masthead text" content="#868484" />
     <meta name="color:Post color" content="#ffffff" />
     <meta name="color:Text highlight" content="#d83e3e" />
     <meta name="font:Body" content='Georgia,serif'/>
-    <meta name="if:Infinite scroll" content="1"/>
-    <meta name="if:Masthead search" content="0"/>
-    <meta name="if:Masthead portrait" content="0"/>
     <meta name="text:Font size" content='0.8em'/>
-    <meta name="text:Google Analytics ID" content=''/>
-    <meta name="image:Masthead" content="" />
-    <meta name="image:Background" content="" />
     <meta name="text:Post margin" content='10px'/>
     <meta name="text:Post width" content='38%'/>
     <!--new options-->
-    <meta name="text:Date labelcolor" content='#1b1b1b'/>
+    <meta name="color:Header" content=""/>
+    <meta name="image:Header background" content="" />
+    <meta name="if:Header image" content=""/>
+    <meta name="image:Header image" content=""/>
+    <meta name="if:Hide Blog title" content="0"/>
+    <meta name="if:Hide Blog description" content="0"/>
+    <meta name="color:Blog title" content="#9a9999" />
+    <meta name="color:Blog description" content="#adadad" />
+    <meta name="if:Header searchbar" content="0"/>
+    <meta name="color:Background" content="#fff" />
+    <meta name="image:Background img" content="" />
+    <meta name="if:No Repeat background img" content="0"/>
+    <meta name="if:Show date label in textpost" content="1"/>
+    <meta name="if:Show date label in quotepost" content="1"/>
+    <meta name="if:Show date label in linkpost" content="1"/>
+    <meta name="if:Show date label in chatpost" content="1"/>
+    <meta name="if:Show date label in photopost" content="1"/>
+    <meta name="color:Date label" content='#1b1b1b'/>
+    <meta name="color:Date text" content="#8F8F8F"/>
+    <meta name="color:Date yeartext" content="#5F5F5F"/>
+    <meta name="color:Content body" content="#FFF"/>
+    <meta name="if:Infinite scroll" content="1"/>
+    <meta name="text:Google Analytics ID" content=''/>
     {block:Description}
     <meta name="description" content="{MetaDescription}" />
     {/block:Description}
@@ -42,16 +54,16 @@
         background: {color:Text highlight};
         color: #fff;
     }
-    ::selection {
+    /*::selection {
         background: {color:Text highlight};
         color: #fff;
-    }
+    }*/
     #content {
-        margin:0 auto;
+        margin:0 auto 60px;
         width:928px;
     }
     body {
-        background: {color:Background} url('{image:Background}');
+        background: {color:Background} url('{image:Background img}') {block:IfNoRepeatBackgroundImg}no-repeat{/block:IfNoRepeatBackgroundImg};
         color: {color:Body text};
         font-family: "Open Sans",sans-serif;
         font-size: {text:Font size};
@@ -101,17 +113,25 @@
       text-transform: uppercase;
       letter-spacing:5px;
       font-size:1.7em;
-      color:#9A9999;
+      color:{color:Blog title};
       text-align:left;
+    }
+    header img{
+      max-height:100px;
+      float:left;
+      position:relative;
+      bottom:7px;
+      margin-right:30px;
     }
     /*Masthead*/
     #masthead {
-        background: {color:Masthead background} url('{image:Masthead}');
+        background: {color:Header} url('{image:Header background}') no-repeat center;
         color: {color:Masthead text};
         margin-bottom:7px;
+        min-height:141px;
     }
     #masthead a {
-        color:#9A9999 ; /*{color:Masthead links};*/
+        color:{color:Blog title} ; /*{color:Masthead links};*/
     }
     nav li {
         display: inline;
@@ -125,8 +145,12 @@
     }
 
     #header p{
-      color:#ADADAD;
+      color:{color:Blog description};
       letter-spacing:2px;
+      {block:IfHeaderImage}
+      position:relative;
+      bottom:10px;
+      {/block:IfHeaderImage}
     }
     #header form{
       position:relative;
@@ -162,13 +186,13 @@
       float:left;
       font-family: 'Open Sans', sans-serif;
       position:absolute;
-      background:#1b1b1b;
+      background:{color:Date label};
       text-align:center;
       height:17px;
       padding-top:1px;
       font-weight:300;
       letter-spacing:2px;
-      color:#8F8F8F;
+      color:{color:Date text};
       line-height:16px;
 
       {block:IndexPage}
@@ -192,7 +216,7 @@
     }
 
     span.year{
-      color:#5F5F5F;
+      color:{color:Date yeartext};
     }
 
     /*.chat span {
@@ -300,9 +324,12 @@
     .search-button{
       border:0;
       background:#000;
-      letter-spacing:1px;
+      letter-spacing:2px;
       color:#ccc;
       font-weight:300;
+      position:relative;
+      bottom:1px;
+      height:24px;
       {block:Permalink}
       display:none;
       {/block:Permalink}
@@ -430,20 +457,20 @@
     <header id="masthead">
         <!--Details: portrait (optional), title and description-->
         <div id="header">
-            {block:IfMastheadPortrait}
-            <img src="{PortraitURL-128}"/>
-            {/block:IfMastheadPortrait}
+            {block:IfHeaderImage}
+            <img src="{image:Header image}"/>
+            {/block:IfHeaderImage}
             <h1><a href="{BlogURL}">{Title}</a></h1>
             {block:Description}
             <p>{Description}</p>
             {block:Description}
 
-            {block:IfMastheadSearch}
+            {block:IfHeaderSearchbar}
             <form action="/search" method="get" class="search">
-                <input type="text" name="q" value="{SearchQuery}"/>
+                <input type="text" name="q" value="{SearchQuery}" placeholder="tags..."/>
                 <input type="submit" value="{lang:Search}" class="search-button"/>
             </form>
-            {/block:IfMastheadSearch}
+            {/block:IfHeaderSearchbar}
         </div>
         <!--Navigation-->
         <nav>
@@ -473,20 +500,6 @@
     <div id="content">
     {block:Posts}
 
-    <!--Metadata: date, note count, content source-->
-    <!--<header class="metadata">-->
-        <!--{block:Date} <a href="{Permalink}"> <time datetime="{Year}-{MonthNumberWithZero}-{DayOfMonthWithZero}">{DayOfMonth} {Month} {Year}</time> </a> {/block:Date}-->
-
-        <!--{block:NoteCount} <a class="notecount" href="{Permalink}#notes">{NoteCountWithLabel}</a> {/block:NoteCount}-->
-
-        <!--{block:ContentSource}
-        <div class="reblogged">
-        <a href="{SourceURL}">{lang:Source}:{block:NoSourceLogo}{SourceTitle}{/block:NoSourceLogo} {block:RebloggedFrom}<img src="{ReblogParentPortraitURL-16}"/>{/block:RebloggedFrom}
-        {block:SourceLogo}<img src="{BlackLogoURL}" width="{LogoWidth}"height="{LogoHeight}" alt="{SourceTitle}" />{/block:SourceLogo}</a>
-        </div>
-        {/block:ContentSource}-->
-    <!--</header>-->
-    <!--Unique code for each post type-->
     {block:Text}
       <article>
         <div class="text">
@@ -494,7 +507,7 @@
             {Body}
 
             {block:Date}
-              <span class="date">{DayOfMonthWithZero} {MonthNumberWithZero} <span class="year">{ShortYear}</span></span>
+              {block:IfShowDateLabelInTextpost}<span class="date">{DayOfMonthWithZero} {MonthNumberWithZero} <span class="year">{ShortYear}</span></span>{/block:IfShowDateLabelInTextpost}
             {/block:Date}
         </div>
       </article>
@@ -527,7 +540,7 @@
             {/block:IndexPage}
 
             {block:Date}
-                        <span class="date">{DayOfMonthWithZero} {MonthNumberWithZero} <span class="year">{ShortYear}</span></span>
+                {block:IfShowDateLabelInPhotopost}<span class="date">{DayOfMonthWithZero} {MonthNumberWithZero} <span class="year">{ShortYear}</span></span>{/block:IfShowDateLabelInPhotopost}
             {/block:Date}
 
             {block:IndexPage}
@@ -592,7 +605,7 @@
           <blockquote>"{Quote}"</blockquote>
           {block:Source}<cite> {Source} </cite>{/block:Source}
           {block:Date}
-                      <span class="date">{DayOfMonthWithZero} {MonthNumberWithZero} {ShortYear}</span>
+              {block:IfShowDateLabelInQuotepost}<span class="date">{DayOfMonthWithZero} {MonthNumberWithZero} {ShortYear}</span>{/block:IfShowDateLabelInQuotepost}
           {/block:Date}
       </div>
     </article>
@@ -608,7 +621,7 @@
           {/block:Description}
 
           {block:Date}
-            <span class="date">{DayOfMonthWithZero} {MonthNumberWithZero} <span class="year">{ShortYear}</span></span>
+            {block:IfShowDateLabelInLinkpost}<span class="date">{DayOfMonthWithZero} {MonthNumberWithZero} <span class="year">{ShortYear}</span></span>{/block:IfShowDateLabelInLinkpost}
           {/block:Date}
       </div>
     </article>
@@ -623,7 +636,7 @@
         </ul>
 
         {block:Date}
-          <span class="date">{DayOfMonthWithZero} {MonthNumberWithZero} <span class="year">{ShortYear}</span></span>
+          {block:IfShowDateLabelInChatpost}<span class="date">{DayOfMonthWithZero} {MonthNumberWithZero} <span class="year">{ShortYear}</span></span>{/block:IfShowDateLabelInChatpost}
         {/block:Date}
     </div>
   </article>
