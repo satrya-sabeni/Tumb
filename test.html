@@ -14,7 +14,8 @@
     <meta name="text:Font size" content='0.8em'/>
     <meta name="text:Post margin" content='10px'/>
     <meta name="text:Post width" content='38%'/>
-    <!--new options-->
+
+    <!--header options-->
     <meta name="color:Header" content=""/>
     <meta name="image:Header background" content="" />
     <meta name="if:Header image" content=""/>
@@ -24,9 +25,18 @@
     <meta name="color:Blog title" content="#9a9999" />
     <meta name="color:Blog description" content="#adadad" />
     <meta name="if:Header searchbar" content="0"/>
+    <meta name="color:Search button" content="#000"/>
+    <meta name="color:Search button text" content="#CCC"/>
+    <meta name="if:Hide header border" content="0"/>
+    <meta name="color:Header border color" content="#e4e4e4"/>
+
+    <!-- body options-->
     <meta name="color:Background" content="#fff" />
     <meta name="image:Background img" content="" />
     <meta name="if:No Repeat background img" content="0"/>
+    <!--?--><meta name="color:Content body" content="#FFF"/>
+
+    <!--post block options-->
     <meta name="if:Show date label in textpost" content="1"/>
     <meta name="if:Show date label in quotepost" content="1"/>
     <meta name="if:Show date label in linkpost" content="1"/>
@@ -35,7 +45,15 @@
     <meta name="color:Date label" content='#1b1b1b'/>
     <meta name="color:Date text" content="#8F8F8F"/>
     <meta name="color:Date yeartext" content="#5F5F5F"/>
-    <meta name="color:Content body" content="#FFF"/>
+    <meta name="color:Taglabel icon" content="#CCC"/>
+    <meta name="color:Taglabel text" content="#CCC"/>
+    <meta name="color:Textposts border color" content="#e4e4e4"/>
+    <meta name="color:Image fadeout color" content="#000"/>
+
+    <!--permalink page options-->
+    <meta name="color:Permalinkpage taglabel icon" content="#CCC"/>
+    <meta name="color:Permalinkpage taglabel text" content="#CCC"/>
+
     <meta name="if:Infinite scroll" content="1"/>
     <meta name="text:Google Analytics ID" content=''/>
     {block:Description}
@@ -48,6 +66,7 @@
     <link rel="alternate" type="application/rss+xml" href="{RSS}">
     <link href="http://static.tumblr.com/wgijwsy/k1Hm9ei8b/normalize.css" rel="stylesheet" type="text/css" />
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,600italic,400,300,600' rel='stylesheet' type='text/css'>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <style type="text/css">
     /*Basic styles*/
     ::-moz-selection {
@@ -141,7 +160,9 @@
       width:914px;
       margin:0 auto;
       padding:30px 0;
-      border-bottom:rgba(154, 153, 153,0.4) dotted 1px;
+      {block:IfNotHideHeaderBorder}
+      border-bottom:{color:Header border color} dotted 1px;
+      {/block:IfNotHideHeaderBorder}
     }
 
     #header p{
@@ -174,7 +195,7 @@
     }
     .photo {
       line-height:0;
-      background:#000;
+      background:{color:Image fadeout color};
       {block:Permalink}
       width:600px;
       {/block:Permalink}
@@ -227,13 +248,13 @@
     .quote{
       background:#FFF;
       padding:20px 30px 30px;
-      border:1px dotted rgba(154, 153, 153, 0.4);
+      border:1px dotted {color:Textposts border color};
     }
     .link{
       background:#FFF;
       height:100%;
       padding:20px 30px;
-      border:1px dotted rgba(154, 153, 153, 0.4);
+      border:1px dotted {color:Textposts border color};
     }
     .link h1{
       margin:0;
@@ -256,7 +277,7 @@
     .text{
       background:#FFF;
       padding:20px 30px;
-      border:1px dotted rgba(154, 153, 153, 0.4);
+      border:1px dotted {color:Textposts border color};
     }
     .text h1{
       font-weight:300;
@@ -289,7 +310,7 @@
     }
     .chat{
       background:#FFF;
-      border:1px dotted rgba(154, 153, 153, 0.4);
+      border:1px dotted {color:Textposts border color};
       padding:20px 30px;
     }
     .chat ul{
@@ -323,9 +344,9 @@
     }
     .search-button{
       border:0;
-      background:#000;
+      background:{color:Search button};
       letter-spacing:2px;
-      color:#ccc;
+      color:{color:Search button text};
       font-weight:300;
       position:relative;
       bottom:1px;
@@ -375,25 +396,36 @@
     }
     #tags li {
         display:inline;
-        margin:0 20px;
         letter-spacing:1.5px;
         padding-left:25px;
         display:inline-block;
         height:20px;
         line-height:19px;
         margin-bottom:5px;
-        font-size:10px;
+        /*font-size:10px;*/
         {block:IndexPage}
-        color:#ccc;
+        color:{color:Taglabel icon};
         font-weight:300;
-        background:url('http://static.tumblr.com/aagplp7/VAXnd2wu8/label.png') no-repeat;
         {/block:IndexPage}
 
         {block:Permalink}
-        color:#1d1818;
+        color:{color:Permalinkpage taglabel icon};
         font-weight:600;
-        background:url('http://static.tumblr.com/aagplp7/fWynd6h9j/black-label.png') no-repeat;
         {/block:Permalink}
+    }
+    #tags li a{
+      font-size:10px;
+      vertical-align:top;
+      margin-left:5px;
+      {block:IndexPage}
+      color:{color:Taglabel text};
+      font-weight:300;
+      {/block:IndexPage}
+
+      {block:Permalink}
+      color:color:Permalinkpage taglabel text;
+      font-weight:500;
+      {/block:Permalink}
     }
     .tagBox{
       min-height:80px;
@@ -547,7 +579,7 @@
             {block:HasTags}
               <ul id="tags">
                 {block:Tags}
-                  <li>{Tag}</li>
+                  <li class="fa fa-tag fa-lg"><a href="{TagURL}">{Tag}</a></li>
                 {/block:Tags}
               </ul>
             {/block:HasTags}
@@ -569,7 +601,7 @@
               {block:HasTags}
                 <ul id="tags">
                   {block:Tags}
-                    <li><a href="{TagURL}">{Tag}</a></li>
+                    <li class="fa fa-tag fa-lg"><a href="{TagURL}">{Tag}</a></li>
                   {/block:Tags}
                 </ul>
               {/block:HasTags}
