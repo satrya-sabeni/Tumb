@@ -313,17 +313,19 @@
       border:1px dotted {color:Textposts border color};
       padding:20px 30px;
     }
-    .chat ul{
-      padding:0 10px;
-    }
     .chat ul li{
       font-size:1em;
       font-weight:300;
       letter-spacing:0.5px;
       list-style:none;
     }
-    .chat ul li .even{
-      float:right;
+    .chat ul li.even span{
+      font-weight:600;
+      font-style:italic;
+    }
+    .chat ul li.odd span{
+      font-weight:600;
+      font-style:italic;
     }
     .audio{
       background:#fff;
@@ -463,14 +465,8 @@
 
     .like_and_reblog_buttons {
       list-style: none;
-      float:right;
       width:150px;
-      margin:5px 0;
-      position:absolute;
-      bottom:50px;
-      left:140px;
-      padding-left:35px;
-      display:none;
+      margin:5px auto;
     }
 
     .like_and_reblog_buttons li {
@@ -479,6 +475,23 @@
       padding: 0px 15px 5px;
       height: 20px;
     }
+    .photo ul.like_and_reblog_buttons {
+      list-style: none;
+      float:right;
+      width:100px;
+      margin:5px 0;
+      position:absolute;
+      bottom:50px;
+      left:140px;
+      padding-left:35px;
+      display:none;
+    }
+    .likeReblogBlock{
+      width:100%;
+      height:50px;
+      padding-top:20px;
+    }
+
     .photoSet{
       width:450px;
       clear:both;
@@ -548,6 +561,12 @@
             {block:Date}
               {block:IfShowDateLabelInTextpost}<span class="date">{DayOfMonthWithZero} {MonthNumberWithZero} <span class="year">{ShortYear}</span></span>{/block:IfShowDateLabelInTextpost}
             {/block:Date}
+            <div class="likeReblogBlock">
+              <ul class="like_and_reblog_buttons">
+                <li>{ReblogButton color="black"}</li>
+                <li>{LikeButton color="black"}</li>
+              </ul>
+            </div>
         </div>
       </article>
       {block:PermalinkPage}
@@ -662,6 +681,12 @@
           {block:Date}
             {block:IfShowDateLabelInLinkpost}<span class="date">{DayOfMonthWithZero} {MonthNumberWithZero} <span class="year">{ShortYear}</span></span>{/block:IfShowDateLabelInLinkpost}
           {/block:Date}
+          <div class="likeReblogBlock">
+            <ul class="like_and_reblog_buttons">
+              <li>{ReblogButton color="black"}</li>
+              <li>{LikeButton color="black"}</li>
+            </ul>
+          </div>
       </div>
     </article>
     {/block:Link}
@@ -669,7 +694,7 @@
     {block:Chat}
     <article>
     <div class="chat">
-        <h1>{block:Title}{Title}{/block:Title}</h1>
+        <h1><a href="{Permalink}">{block:Title}{Title}{/block:Title}</a></h1>
         <ul>
             {block:Lines}<li class="{Alt}"><p><span>{block:Label} {Label} {/block:Label}</span> {Line} </p></li>{/block:Lines}
         </ul>
@@ -677,6 +702,12 @@
         {block:Date}
           {block:IfShowDateLabelInChatpost}<span class="date">{DayOfMonthWithZero} {MonthNumberWithZero} <span class="year">{ShortYear}</span></span>{/block:IfShowDateLabelInChatpost}
         {/block:Date}
+        <div class="likeReblogBlock">
+          <ul class="like_and_reblog_buttons">
+            <li>{ReblogButton color="black"}</li>
+            <li>{LikeButton color="black"}</li>
+          </ul>
+        </div>
     </div>
   </article>
     {/block:Chat}
