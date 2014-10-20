@@ -87,6 +87,8 @@
         color: {color:Body text};
         font-family: "Open Sans",sans-serif;
         font-size: {text:Font size};
+        position:relative;
+        right:0px;
         margin: 0;
         padding: 0;
     }
@@ -192,9 +194,7 @@
     .sidebar-button{
       position:absolute;
       right:0;
-      width:60px;
       height:60px;
-      background:navy;
     }
     /*Article*/
     article {
@@ -531,7 +531,7 @@
         <!--Details: portrait (optional), title and description-->
         <div id="header">
             <span class="absolute">
-                <span class="sidebar-button">
+                <span class="sidebar-button fa fa-bars fa-2x">
                 </span>
             </span>
             {block:IfHeaderImage}
@@ -883,6 +883,14 @@
       )
     });
     {/block:IndexPage}
+
+    $('.sidebar-button').click(function(){
+      if($('body').css('right') === '0px'){
+      $('body').animate({"right":"300px"});
+    } else {
+      $('body').animate({"right":"0px"});
+      }
+    });
     </script>
     <!--For users adding Google Analytics ID-->
     <script>
