@@ -34,6 +34,7 @@
     <meta name="image:Background img" content="" />
     <meta name="if:No Repeat background img" content="0"/>
     <!--?--><meta name="color:Content body" content="#FFF"/>
+    <meta name="if:Sidebar" content="0"/>
 
     <!--post block options-->
     <meta name="if:Show date label in textpost" content="1"/>
@@ -88,7 +89,7 @@
         font-family: "Open Sans",sans-serif;
         font-size: {text:Font size};
         position:relative;
-        right:0px;
+        left:0px;
         margin: 0;
         padding: 0;
     }
@@ -186,15 +187,18 @@
       bottom:7px;
       {block:IfNotHideBlogTitleAndDescription}
     }
-    .absolute{
-      width:914px;
-      position:absolute;
-      display:block;
-    }
     .sidebar-button{
-      position:absolute;
-      right:0;
+      position:fixed;
+      left:10px;
+      top:10px;
       height:60px;
+    }
+    .sidebar{
+      width:300px;
+      height:100%;
+      background:#1b1b1b;
+      position:absolute;
+      left:-300px;
     }
     /*Article*/
     article {
@@ -385,13 +389,6 @@
       letter-spacing:1px;
       font-family:"Open Sans";
     }
-
-    .sidebar{
-      /*left:auto !important;*/
-      right:0;
-      width:300px;
-      margin:7px 0;
-    }
     .contentInfo{
       width:600px;
       margin:7px;
@@ -526,67 +523,209 @@
     </style>
     </head>
     <body>
-    <!--Masthead-->
-    <header id="masthead">
-        <!--Details: portrait (optional), title and description-->
-        <div id="header">
-            <span class="absolute">
-                <span class="sidebar-button fa fa-bars fa-2x">
-                </span>
-            </span>
-            {block:IfHeaderImage}
-            <img src="{image:Header image}"/>
-            {/block:IfHeaderImage}
-            {block:IfNotHideBlogTitleAndDescription}
-            <h1><a href="{BlogURL}">{Title}</a></h1>
-            {block:Description}
-            <p>{Description}</p>
-            {block:Description}
-            {/block:IfNotHideBlogTitleAndDescription}
+      <div class="container">
+        <!--Masthead-->
+        <header id="masthead">
+            <!--Details: portrait (optional), title and description-->
+            {block:IfSidebar}
+            <span class="sidebar-button fa fa-bars fa-2x"></span>
+            <div class="sidebar"></div>
+            {/block:IfSidebar}
+            <div id="header">
+                {block:IfHeaderImage}
+                <img src="{image:Header image}"/>
+                {/block:IfHeaderImage}
+                {block:IfNotHideBlogTitleAndDescription}
+                <h1><a href="{BlogURL}">{Title}</a></h1>
+                {block:Description}
+                <p>{Description}</p>
+                {block:Description}
+                {/block:IfNotHideBlogTitleAndDescription}
 
-            {block:IfHeaderSearchbar}
-            <form action="/search" method="get" class="search">
-                <input type="text" name="q" value="{SearchQuery}" placeholder="tags" class="searchquery"/>
-                <input type="submit" value="{lang:Search}" class="search-button"/>
+                {block:IfHeaderSearchbar}
+                <form action="/search" method="get" class="search">
+                    <input type="text" name="q" value="{SearchQuery}" placeholder="tags" class="searchquery"/>
+                    <input type="submit" value="{lang:Search}" class="search-button"/>
+                </form>
+                {/block:IfHeaderSearchbar}
+            </div>
+            <!--Navigation-->
+            <nav>
+                <ul>
+                    {block:HasPages}
+                    {block:Pages}
+                    <li> <a href="{URL}">{Label}</a></li>
+                    {/block:Pages}
+                    {/block:HasPages}
+                    {block:SubmissionsEnabled}
+                    <li> <a href="/submit">{SubmitLabel}</a></li>
+                    {/block:SubmissionsEnabled}
+                    {block:AskEnabled}
+                    <li> <a href="/ask">{AskLabel}</a></li>
+                    {/block:AskEnabled}
+                </ul>
+            </nav>
+            <!--
+            {block:IfMastheadSearch}
+            <form action="/search" method="get">
+                <input type="text" name="q" value="{SearchQuery}"/>
+                <input type="submit" value="{lang:Search}"/>
             </form>
-            {/block:IfHeaderSearchbar}
-        </div>
-        <!--Navigation-->
-        <nav>
-            <ul>
-                {block:HasPages}
-                {block:Pages}
-                <li> <a href="{URL}">{Label}</a></li>
-                {/block:Pages}
-                {/block:HasPages}
-                {block:SubmissionsEnabled}
-                <li> <a href="/submit">{SubmitLabel}</a></li>
-                {/block:SubmissionsEnabled}
-                {block:AskEnabled}
-                <li> <a href="/ask">{AskLabel}</a></li>
-                {/block:AskEnabled}
-            </ul>
-        </nav>
-        <!--
-        {block:IfMastheadSearch}
-        <form action="/search" method="get">
-            <input type="text" name="q" value="{SearchQuery}"/>
-            <input type="submit" value="{lang:Search}"/>
-        </form>
-        {/block:IfMastheadSearch}-->
-    </header>
-    <!--Content holder-->
-    <div id="content">
-    {block:Posts}
+            {/block:IfMastheadSearch}-->
+        </header>
+        <!--Content holder-->
+        <div id="content">
+        {block:Posts}
 
-    {block:Text}
-      <article>
-        <div class="text">
-            {block:Title}<h1 class="title"><a href="{Permalink}">{Title}</a></h1>{/block:Title}
-            {Body}
+        {block:Text}
+          <article>
+            <div class="text">
+                {block:Title}<h1 class="title"><a href="{Permalink}">{Title}</a></h1>{/block:Title}
+                {Body}
+
+                {block:Date}
+                  {block:IfShowDateLabelInTextpost}<span class="date">{DayOfMonthWithZero} {MonthNumberWithZero} <span class="year">{ShortYear}</span></span>{/block:IfShowDateLabelInTextpost}
+                {/block:Date}
+                <div class="likeReblogBlock">
+                  <ul class="like_and_reblog_buttons">
+                    <li>{ReblogButton color="black"}</li>
+                    <li>{LikeButton color="black"}</li>
+                  </ul>
+                </div>
+            </div>
+          </article>
+          {block:PermalinkPage}
+            <div class="contentInfo">
+                <div class="tagBox">
+                  {block:HasTags}
+                    <ul id="tags">
+                      {block:Tags}
+                        <li><a href="{TagURL}">{Tag}</a></li>
+                      {/block:Tags}
+                    </ul>
+                  {/block:HasTags}
+                </div>
+            </div>
+
+            <div class="sidebar">
+                {block:PostNotes}
+                  {PostNotes}
+                {/block:PostNotes}
+            </div>
+          {/block:PermalinkPage}
+        {/block:Text}
+
+        {block:Photo}
+          <article>
+            <div class="photo">
+                {block:IndexPage}
+                <a href="{Permalink}"><img src="{PhotoURL-500}" alt="{PhotoAlt}"/></a>
+                {/block:IndexPage}
+
+                {block:Date}
+                    {block:IfShowDateLabelInPhotopost}<span class="date">{DayOfMonthWithZero} {MonthNumberWithZero} <span class="year">{ShortYear}</span></span>{/block:IfShowDateLabelInPhotopost}
+                {/block:Date}
+
+                {block:IndexPage}
+                {block:HasTags}
+                  <ul id="tags">
+                    {block:Tags}
+                      <li class="fa fa-tag fa-lg"><a href="{TagURL}">{Tag}</a></li>
+                    {/block:Tags}
+                  </ul>
+                {/block:HasTags}
+
+                <ul class="like_and_reblog_buttons">
+                        <li>{ReblogButton}</li>
+                        <li>{LikeButton}</li>
+                </ul>
+                {/block:IndexPage}
+
+                {block:PermalinkPage}
+                <img src="{PhotoURL-1280}" alt="{PhotoAlt}" style="width:600px"/>
+                {/block:PermalinkPage}
+            </div>
+          </article>
+          {block:PermalinkPage}
+            <div class="contentInfo">
+                <div class="tagBox">
+                  {block:HasTags}
+                    <ul id="tags">
+                      {block:Tags}
+                        <li class="fa fa-tag fa-lg"><a href="{TagURL}">{Tag}</a></li>
+                      {/block:Tags}
+                    </ul>
+                  {/block:HasTags}
+                </div>
+
+                {block:Caption}
+                  <div class="caption">{Caption}</div>
+                {/block:Caption}
+            </div>
+
+            <div class="sidebar">
+                {block:PostNotes}
+                  {PostNotes}
+                {/block:PostNotes}
+            </div>
+          {/block:PermalinkPage}
+        {/block:Photo}
+
+
+        {block:Photoset}
+        <article>
+        <div class="photoSet">
+            {block:IndexPage}{Photoset}{/block:IndexPage}
+            <!--{block:PermalinkPage}{Photoset-700}{/block:PermalinkPage}-->
+            <!--{block:Caption}{Caption}{/block:Caption}-->
+        </div>
+        </article>
+        {/block:Photoset}
+
+        {block:Quote}
+        <article>
+          <div class="quote">
+              <blockquote>"{Quote}"</blockquote>
+              {block:Source}<cite> {Source} </cite>{/block:Source}
+              {block:Date}
+                  {block:IfShowDateLabelInQuotepost}<span class="date">{DayOfMonthWithZero} {MonthNumberWithZero} {ShortYear}</span>{/block:IfShowDateLabelInQuotepost}
+              {/block:Date}
+          </div>
+        </article>
+        {/block:Quote}
+
+        {block:Link}
+        <article>
+          <div class="link">
+              <h1 class="title"><a href="{URL}">www.{Host}</a></h1>
+              <p>{Name}</p>
+              {block:Description}
+                {Description}
+              {/block:Description}
+
+              {block:Date}
+                {block:IfShowDateLabelInLinkpost}<span class="date">{DayOfMonthWithZero} {MonthNumberWithZero} <span class="year">{ShortYear}</span></span>{/block:IfShowDateLabelInLinkpost}
+              {/block:Date}
+              <div class="likeReblogBlock">
+                <ul class="like_and_reblog_buttons">
+                  <li>{ReblogButton color="black"}</li>
+                  <li>{LikeButton color="black"}</li>
+                </ul>
+              </div>
+          </div>
+        </article>
+        {/block:Link}
+
+        {block:Chat}
+        <article>
+        <div class="chat">
+            <h1><a href="{Permalink}">{block:Title}{Title}{/block:Title}</a></h1>
+            <ul>
+                {block:Lines}<li class="{Alt}"><p><span>{block:Label} {Label} {/block:Label}</span> {Line} </p></li>{/block:Lines}
+            </ul>
 
             {block:Date}
-              {block:IfShowDateLabelInTextpost}<span class="date">{DayOfMonthWithZero} {MonthNumberWithZero} <span class="year">{ShortYear}</span></span>{/block:IfShowDateLabelInTextpost}
+              {block:IfShowDateLabelInChatpost}<span class="date">{DayOfMonthWithZero} {MonthNumberWithZero} <span class="year">{ShortYear}</span></span>{/block:IfShowDateLabelInChatpost}
             {/block:Date}
             <div class="likeReblogBlock">
               <ul class="like_and_reblog_buttons">
@@ -615,191 +754,51 @@
             {/block:PostNotes}
         </div>
       {/block:PermalinkPage}
-    {/block:Text}
+        {/block:Chat}
 
-    {block:Photo}
-      <article>
-        <div class="photo">
-            {block:IndexPage}
-            <a href="{Permalink}"><img src="{PhotoURL-500}" alt="{PhotoAlt}"/></a>
-            {/block:IndexPage}
-
-            {block:Date}
-                {block:IfShowDateLabelInPhotopost}<span class="date">{DayOfMonthWithZero} {MonthNumberWithZero} <span class="year">{ShortYear}</span></span>{/block:IfShowDateLabelInPhotopost}
-            {/block:Date}
-
-            {block:IndexPage}
-            {block:HasTags}
-              <ul id="tags">
-                {block:Tags}
-                  <li class="fa fa-tag fa-lg"><a href="{TagURL}">{Tag}</a></li>
-                {/block:Tags}
-              </ul>
-            {/block:HasTags}
-
-            <ul class="like_and_reblog_buttons">
-                    <li>{ReblogButton}</li>
-                    <li>{LikeButton}</li>
-            </ul>
-            {/block:IndexPage}
-
-            {block:PermalinkPage}
-            <img src="{PhotoURL-1280}" alt="{PhotoAlt}" style="width:600px"/>
-            {/block:PermalinkPage}
+        {block:Audio}
+        <article>
+        <div class="audio">
+            <div class="albumart">{block:AlbumArt}<img src="{AlbumArtURL}" width="500" height="500"/>{/block:AlbumArt}</div>
+            <div class="player">{AudioPlayerBlack}</div>
+            {block:AudioEmbed}{AudioEmbed}{/block:AudioEmbed}
         </div>
       </article>
-      {block:PermalinkPage}
-        <div class="contentInfo">
-            <div class="tagBox">
-              {block:HasTags}
-                <ul id="tags">
-                  {block:Tags}
-                    <li class="fa fa-tag fa-lg"><a href="{TagURL}">{Tag}</a></li>
-                  {/block:Tags}
-                </ul>
-              {/block:HasTags}
-            </div>
+        {/block:Audio}
 
-            {block:Caption}
-              <div class="caption">{Caption}</div>
-            {/block:Caption}
-        </div>
-
-        <div class="sidebar">
-            {block:PostNotes}
-              {PostNotes}
-            {/block:PostNotes}
-        </div>
-      {/block:PermalinkPage}
-    {/block:Photo}
-
-
-    {block:Photoset}
-    <article>
-    <div class="photoSet">
-        {block:IndexPage}{Photoset}{/block:IndexPage}
-        <!--{block:PermalinkPage}{Photoset-700}{/block:PermalinkPage}-->
-        <!--{block:Caption}{Caption}{/block:Caption}-->
-    </div>
-    </article>
-    {/block:Photoset}
-
-    {block:Quote}
-    <article>
-      <div class="quote">
-          <blockquote>"{Quote}"</blockquote>
-          {block:Source}<cite> {Source} </cite>{/block:Source}
-          {block:Date}
-              {block:IfShowDateLabelInQuotepost}<span class="date">{DayOfMonthWithZero} {MonthNumberWithZero} {ShortYear}</span>{/block:IfShowDateLabelInQuotepost}
-          {/block:Date}
-      </div>
-    </article>
-    {/block:Quote}
-
-    {block:Link}
-    <article>
-      <div class="link">
-          <h1 class="title"><a href="{URL}">www.{Host}</a></h1>
-          <p>{Name}</p>
-          {block:Description}
-            {Description}
-          {/block:Description}
-
-          {block:Date}
-            {block:IfShowDateLabelInLinkpost}<span class="date">{DayOfMonthWithZero} {MonthNumberWithZero} <span class="year">{ShortYear}</span></span>{/block:IfShowDateLabelInLinkpost}
-          {/block:Date}
-          <div class="likeReblogBlock">
-            <ul class="like_and_reblog_buttons">
-              <li>{ReblogButton color="black"}</li>
-              <li>{LikeButton color="black"}</li>
-            </ul>
+        {block:Video}
+        <article>
+          <div class="video">
+              {Video-500}
           </div>
-      </div>
-    </article>
-    {/block:Link}
+        </article>
+        {/block:Video}
 
-    {block:Chat}
-    <article>
-    <div class="chat">
-        <h1><a href="{Permalink}">{block:Title}{Title}{/block:Title}</a></h1>
-        <ul>
-            {block:Lines}<li class="{Alt}"><p><span>{block:Label} {Label} {/block:Label}</span> {Line} </p></li>{/block:Lines}
-        </ul>
-
-        {block:Date}
-          {block:IfShowDateLabelInChatpost}<span class="date">{DayOfMonthWithZero} {MonthNumberWithZero} <span class="year">{ShortYear}</span></span>{/block:IfShowDateLabelInChatpost}
-        {/block:Date}
-        <div class="likeReblogBlock">
-          <ul class="like_and_reblog_buttons">
-            <li>{ReblogButton color="black"}</li>
-            <li>{LikeButton color="black"}</li>
-          </ul>
+        {block:Answer}
+        <article>
+        <div class="answer">
+            <h1 class="title">{Question}</h1>
+            <div class="user"><img src="{AskerPortraitURL-96}"/><p>{Asker}</p></div>
+            {Answer}
         </div>
-    </div>
-  </article>
-  {block:PermalinkPage}
-    <div class="contentInfo">
-        <div class="tagBox">
-          {block:HasTags}
-            <ul id="tags">
-              {block:Tags}
-                <li><a href="{TagURL}">{Tag}</a></li>
-              {/block:Tags}
-            </ul>
-          {/block:HasTags}
+        <article>
+        {/block:Answer}
+        <!--Post footer (tags and notes) on displayed on permalink pages-->
+      <!--Close of article-->
+
+        {/block:Posts}
+        <!--permalinkPage sideblock-->
+
+      </div><!--Close of contentdiv-->
+
+        <!--Pagination: previous/next page links-->
+        {block:Pagination}
+        <div class="pagination">
+            {block:PreviousPage}<a href="{PreviousPage}">Previous page</a>{/block:PreviousPage}
+            {block:NextPage}<a href="{NextPage}">Next page</a>{/block:NextPage}
         </div>
-    </div>
-
-    <div class="sidebar">
-        {block:PostNotes}
-          {PostNotes}
-        {/block:PostNotes}
-    </div>
-  {/block:PermalinkPage}
-    {/block:Chat}
-
-    {block:Audio}
-    <article>
-    <div class="audio">
-        <div class="albumart">{block:AlbumArt}<img src="{AlbumArtURL}" width="500" height="500"/>{/block:AlbumArt}</div>
-        <div class="player">{AudioPlayerBlack}</div>
-        {block:AudioEmbed}{AudioEmbed}{/block:AudioEmbed}
-    </div>
-  </article>
-    {/block:Audio}
-
-    {block:Video}
-    <article>
-      <div class="video">
-          {Video-500}
-      </div>
-    </article>
-    {/block:Video}
-
-    {block:Answer}
-    <article>
-    <div class="answer">
-        <h1 class="title">{Question}</h1>
-        <div class="user"><img src="{AskerPortraitURL-96}"/><p>{Asker}</p></div>
-        {Answer}
-    </div>
-    <article>
-    {/block:Answer}
-    <!--Post footer (tags and notes) on displayed on permalink pages-->
-  <!--Close of article-->
-
-    {/block:Posts}
-    <!--permalinkPage sideblock-->
-
-  </div><!--Close of contentdiv-->
-
-    <!--Pagination: previous/next page links-->
-    {block:Pagination}
-    <div class="pagination">
-        {block:PreviousPage}<a href="{PreviousPage}">Previous page</a>{/block:PreviousPage}
-        {block:NextPage}<a href="{NextPage}">Next page</a>{/block:NextPage}
-    </div>
-    {/block:Pagination}
+        {/block:Pagination}
+      </div><!--end of .container div-->
     <!--Links to jQuery library, Masonry, infinite scroll and imagesLoaded-->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
     <script src="http://static.tumblr.com/wgijwsy/Ebfm2v4gy/jquery.masonry.min.js"></script>
@@ -885,10 +884,14 @@
     {/block:IndexPage}
 
     $('.sidebar-button').click(function(){
-      if($('body').css('right') === '0px'){
-      $('body').animate({"right":"300px"});
+      if($('body').css('left') === '0px'){
+      $('body').animate({"left":"300px"},"fast");
+      $('.sidebar-button').animate({"left":"310px"},"fast");
+      $('.sidebar').animate({"left":"0px"},"fast");
     } else {
-      $('body').animate({"right":"0px"});
+      $('body').animate({"left":"0px"},"fast");
+      $('.sidebar-button').animate({"left":"10px"},"fast");
+      $('.sidebar').animate({"left":"-300px"},"fast");
       }
     });
     </script>
