@@ -88,10 +88,12 @@
         color: {color:Body text};
         font-family: "Open Sans",sans-serif;
         font-size: {text:Font size};
-        position:relative;
-        left:0px;
         margin: 0;
         padding: 0;
+    }
+    .container{
+      position:relative;
+      left:0px;
     }
     a {
         color: {color:Body links};
@@ -192,6 +194,7 @@
       left:10px;
       top:10px;
       height:60px;
+      cursor:pointer;
     }
     .sidebar{
       width:300px;
@@ -523,13 +526,16 @@
     </style>
     </head>
     <body>
+      {block:IfSidebar}
+      <span class="sidebar-button fa fa-bars fa-2x"></span>
+      <div class="sidebar"></div>
+      {/block:IfSidebar}
       <div class="container">
         <!--Masthead-->
         <header id="masthead">
             <!--Details: portrait (optional), title and description-->
             {block:IfSidebar}
             <span class="sidebar-button fa fa-bars fa-2x"></span>
-            <div class="sidebar"></div>
             {/block:IfSidebar}
             <div id="header">
                 {block:IfHeaderImage}
@@ -884,12 +890,12 @@
     {/block:IndexPage}
 
     $('.sidebar-button').click(function(){
-      if($('body').css('left') === '0px'){
-      $('body').animate({"left":"300px"},"fast");
+      if($('.container').css('left') === '0px'){
+      $('.container').animate({"left":"300px"},"fast");
       $('.sidebar-button').animate({"left":"310px"},"fast");
       $('.sidebar').animate({"left":"0px"},"fast");
     } else {
-      $('body').animate({"left":"0px"},"fast");
+      $('.container').animate({"left":"0px"},"fast");
       $('.sidebar-button').animate({"left":"10px"},"fast");
       $('.sidebar').animate({"left":"-300px"},"fast");
       }
