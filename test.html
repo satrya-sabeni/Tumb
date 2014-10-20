@@ -36,6 +36,10 @@
     <!--?--><meta name="color:Content body" content="#FFF"/>
     <meta name="if:Sidebar" content="0"/>
 
+    <!--sidebar options-->
+    <meta name="color:Sidebar button" content="#1b1b1b"/>
+    <meta name="color:Sidebar" content="#1b1b1b"/>
+
     <!--post block options-->
     <meta name="if:Show date label in textpost" content="1"/>
     <meta name="if:Show date label in quotepost" content="1"/>
@@ -195,13 +199,29 @@
       top:10px;
       height:60px;
       cursor:pointer;
+      color:{color:Sidebar button};
     }
     .sidebar{
       width:300px;
       height:100%;
-      background:#1b1b1b;
+      background:{color:Sidebar};
       position:fixed;
       left:-300px;
+    }
+    .sidebar img{
+      -moz-border-radius: 96px;
+      -webkit-border-radius: 96px;
+      border-radius: 96px;
+      display:block;
+      margin:30px auto;
+    }
+    .sidebar p{
+      color:#eeeeee;
+      font-weight:300;
+      width:230px;
+      margin:0 auto;
+      font-size:0.9em;
+      font-style:italic;
     }
     /*Article*/
     article {
@@ -521,7 +541,11 @@
     iframe.photoset {
 	    width: 450px !important;
     }
-
+    .statusbar{
+      right:0;
+      width:300px;
+      margin:7px 0;
+    }
     /*Navigation, ScrollToTop*/
     .circle {
     	width: 30px;
@@ -534,6 +558,7 @@
       bottom:50px;
       right:150px;
       text-align:center;
+      display:none;
     }
     .circle span{
       color:#eeeeee;
@@ -546,7 +571,10 @@
     <body>
       {block:IfSidebar}
       <span class="sidebar-button fa fa-bars fa-2x"></span>
-      <div class="sidebar"></div>
+        <div class="sidebar">
+          <img src="{PortraitURL-96}"/>
+          <p>Hello world</p>
+        </div>
       {/block:IfSidebar}
       <div class="container">
         <!--Masthead-->
@@ -557,7 +585,7 @@
             {/block:IfSidebar}
             <div id="header">
                 {block:IfHeaderImage}
-                <img src="{image:Header image}"/>
+                <a href="{BlogURL}"><img src="{image:Header image}"/></a>
                 {/block:IfHeaderImage}
                 {block:IfNotHideBlogTitleAndDescription}
                 <h1><a href="{BlogURL}">{Title}</a></h1>
@@ -619,19 +647,19 @@
             </div>
           </article>
           {block:PermalinkPage}
-            <div class="contentInfo">
-                <div class="tagBox">
-                  {block:HasTags}
-                    <ul id="tags">
-                      {block:Tags}
-                        <li><a href="{TagURL}">{Tag}</a></li>
-                      {/block:Tags}
-                    </ul>
-                  {/block:HasTags}
-                </div>
-            </div>
+          <div class="contentInfo">
+              <div class="tagBox">
+                {block:HasTags}
+                  <ul id="tags">
+                    {block:Tags}
+                      <li class="fa fa-tag fa-lg"><a href="{TagURL}">{Tag}</a></li>
+                    {/block:Tags}
+                  </ul>
+                {/block:HasTags}
+              </div>
 
-            <div class="sidebar">
+          </div>
+            <div class="statusbar">
                 {block:PostNotes}
                   {PostNotes}
                 {/block:PostNotes}
@@ -687,7 +715,7 @@
                 {/block:Caption}
             </div>
 
-            <div class="sidebar">
+            <div class="statusbar">
                 {block:PostNotes}
                   {PostNotes}
                 {/block:PostNotes}
@@ -772,7 +800,7 @@
             </div>
         </div>
 
-        <div class="sidebar">
+        <div class="statusbar">
             {block:PostNotes}
               {PostNotes}
             {/block:PostNotes}
@@ -885,8 +913,8 @@
         });
     })();
 
-    {block:IndexPage}
     $(document).ready(function(){
+    {block:IndexPage}
       $('.photo').hover(
         function(){
         $(this).children("ul").fadeIn();
@@ -903,7 +931,6 @@
         $(this).children("a").children("img").fadeTo(200,1);
         }
       )
-    });
     {/block:IndexPage}
 
     $('.sidebar-button').click(function(){
@@ -923,9 +950,15 @@
         return false;
     });
 
-      if ($('body').scrollTop() === "2500"){
-        $('.circle').fadeOut();
-      }
+        $(window).scroll(function(){
+          if ($(window).scrollTop() > 1200){
+            $('.circle').fadeIn("fast");
+          } else {
+            $('.circle').fadeOut("fast");
+          }
+        });
+
+    });/*end document ready*/
     </script>
     <!--For users adding Google Analytics ID-->
     <script>
