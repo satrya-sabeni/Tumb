@@ -532,11 +532,13 @@
       height:50px;
       padding-top:20px;
     }
-
     .photoSet{
       width:450px;
       clear:both;
       background:#fff;
+    }
+    .likeReblogBlock ul.like_and_reblog_buttons{
+      display:none;
     }
     iframe.photoset {
 	    width: 450px !important;
@@ -545,6 +547,8 @@
       right:0;
       width:300px;
       margin:7px 0;
+      height:550px;
+      overflow:scroll;
     }
     /*Navigation, ScrollToTop*/
     .circle {
@@ -640,8 +644,8 @@
                 {/block:Date}
                 <div class="likeReblogBlock">
                   <ul class="like_and_reblog_buttons">
-                    <li>{ReblogButton color="black"}</li>
-                    <li>{LikeButton color="black"}</li>
+                    <li>{ReblogButton color="grey"}</li>
+                    <li>{LikeButton color="grey"}</li>
                   </ul>
                 </div>
             </div>
@@ -742,6 +746,12 @@
               {block:Date}
                   {block:IfShowDateLabelInQuotepost}<span class="date">{DayOfMonthWithZero} {MonthNumberWithZero} {ShortYear}</span>{/block:IfShowDateLabelInQuotepost}
               {/block:Date}
+              <div class="likeReblogBlock">
+                <ul class="like_and_reblog_buttons">
+                  <li>{ReblogButton color="grey"}</li>
+                  <li>{LikeButton color="grey"}</li>
+                </ul>
+              </div>
           </div>
         </article>
         {/block:Quote}
@@ -760,8 +770,8 @@
               {/block:Date}
               <div class="likeReblogBlock">
                 <ul class="like_and_reblog_buttons">
-                  <li>{ReblogButton color="black"}</li>
-                  <li>{LikeButton color="black"}</li>
+                  <li>{ReblogButton color="grey"}</li>
+                  <li>{LikeButton color="grey"}</li>
                 </ul>
               </div>
           </div>
@@ -781,8 +791,8 @@
             {/block:Date}
             <div class="likeReblogBlock">
               <ul class="like_and_reblog_buttons">
-                <li>{ReblogButton color="black"}</li>
-                <li>{LikeButton color="black"}</li>
+                <li>{ReblogButton color="grey"}</li>
+                <li>{LikeButton color="grey"}</li>
               </ul>
             </div>
         </div>
@@ -898,6 +908,42 @@
                   $(this).children("a").children("img").fadeTo(200,1);
                   }
                 );
+                /*chat reblog buttons fade*/
+                $('.chat').hover(
+                  function(){
+                  $(".chat .likeReblogBlock ul.like_and_reblog_buttons").fadeIn();
+                  },
+                  function(){
+                  $(".chat .likeReblogBlock ul.like_and_reblog_buttons").fadeOut();
+                  }
+                );
+                /*text reblog buttons fade*/
+                $('.text').hover(
+                  function(){
+                  $(".text .likeReblogBlock ul.like_and_reblog_buttons").fadeIn();
+                  },
+                  function(){
+                  $(".text .likeReblogBlock ul.like_and_reblog_buttons").fadeOut();
+                  }
+                );
+                /*link reblog buttons fade*/
+                $('.link').hover(
+                  function(){
+                  $(".link .likeReblogBlock ul.like_and_reblog_buttons").fadeIn();
+                  },
+                  function(){
+                  $(".link .likeReblogBlock ul.like_and_reblog_buttons").fadeOut();
+                  }
+                );
+                /*quote reblog buttons fade*/
+                $('.quote').hover(
+                  function(){
+                  $(".quote .likeReblogBlock ul.like_and_reblog_buttons").fadeIn();
+                  },
+                  function(){
+                  $(".quote .likeReblogBlock ul.like_and_reblog_buttons").fadeOut();
+                  }
+                );
 
               }
         );
@@ -931,6 +977,45 @@
         $(this).children("a").children("img").fadeTo(200,1);
         }
       )
+    {/block:IndexPage}
+
+    {block:IndexPage}
+      /*chat reblog buttons fade*/
+      $('.chat').hover(
+        function(){
+        $(".chat .likeReblogBlock ul.like_and_reblog_buttons").fadeIn();
+        },
+        function(){
+        $(".chat .likeReblogBlock ul.like_and_reblog_buttons").fadeOut();
+        }
+      );
+      /*text reblog buttons fade*/
+      $('.text').hover(
+        function(){
+        $(".text .likeReblogBlock ul.like_and_reblog_buttons").fadeIn();
+        },
+        function(){
+        $(".text .likeReblogBlock ul.like_and_reblog_buttons").fadeOut();
+        }
+      );
+      /*link reblog buttons fade*/
+      $('.link').hover(
+        function(){
+        $(".link .likeReblogBlock ul.like_and_reblog_buttons").fadeIn();
+        },
+        function(){
+        $(".link .likeReblogBlock ul.like_and_reblog_buttons").fadeOut();
+        }
+      );
+      /*quote reblog buttons fade*/
+      $('.quote').hover(
+        function(){
+        $(".quote .likeReblogBlock ul.like_and_reblog_buttons").fadeIn();
+        },
+        function(){
+        $(".quote .likeReblogBlock ul.like_and_reblog_buttons").fadeOut();
+        }
+      );
     {/block:IndexPage}
 
     $('.sidebar-button').click(function(){
