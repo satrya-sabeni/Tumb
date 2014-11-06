@@ -46,6 +46,7 @@
     <meta name="if:Show date label in linkpost" content="1"/>
     <meta name="if:Show date label in chatpost" content="1"/>
     <meta name="if:Show date label in photopost" content="1"/>
+    <meta name="color:Posts background" content="#FFF"/>
     <meta name="color:Date label" content='#1b1b1b'/>
     <meta name="color:Date text" content="#8F8F8F"/>
     <meta name="color:Date yeartext" content="#5F5F5F"/>
@@ -202,6 +203,7 @@
       height:60px;
       cursor:pointer;
       color:{color:Sidebar button};
+      z-index:10;
     }
     .sidebar{
       width:300px;
@@ -295,12 +297,12 @@
     }*/
 
     .quote{
-      background:#FFF;
+      background:{color:Posts background};
       padding:20px 30px 30px;
       border:1px dotted {color:Textposts border color};
     }
     .link{
-      background:#FFF;
+      background:{color:Posts background};
       height:100%;
       padding:20px 30px;
       border:1px dotted {color:Textposts border color};
@@ -324,7 +326,7 @@
       letter-spacing:0.5px;
     }
     .text{
-      background:#FFF;
+      background:{color:Posts background};
       padding:20px 30px;
       border:1px dotted {color:Textposts border color};
     }
@@ -358,7 +360,7 @@
       padding:0;
     }
     .chat{
-      background:#FFF;
+      background:{color:Posts background};
       border:1px dotted {color:Textposts border color};
       padding:20px 30px;
     }
@@ -1021,16 +1023,25 @@
       );
     {/block:IndexPage}
 
-    $('.sidebar-button').click(function(){
+    function sidebar(){
       if($('.container').css('left') === '0px'){
       $('.container').animate({"left":"300px"},"fast");
       $('.sidebar-button').animate({"left":"310px"},"fast");
       $('.sidebar').animate({"left":"0px"},"fast");
-    } else {
+      }
+      else {
       $('.container').animate({"left":"0px"},"fast");
       $('.sidebar-button').animate({"left":"10px"},"fast");
       $('.sidebar').animate({"left":"-300px"},"fast");
       }
+    }
+
+    $('.sidebar-button').click(function(){
+      sidebar();
+    });
+
+    $('.sidebar').click(function(){
+      sidebar();
     });
 
     $('a[href=#top]').click(function(){
