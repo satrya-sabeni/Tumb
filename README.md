@@ -24,6 +24,8 @@
 
 **14.10.2014** - Added user options such as logo input,data label, color options etc
 
+**04.11.2014** - Possible font change, added options need to evaluate and improve design
+
 
 <h1>Theme: ModernDayMentality</h1>
 
