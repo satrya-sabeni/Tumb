@@ -23,3 +23,8 @@
 **13.10.2014** - Added infinite scroll
 
 **14.10.2014** - Added user options such as logo input,data label, color options etc
+
+
+<h1>Theme: ModernDayMentality</h1>
+
+**07.11.2014** - Set up the base of at moderndaymentality.tumblr.com
