@@ -26,6 +26,8 @@
 
 **04.11.2014** - Possible font change, added options need to evaluate and improve design
 
+**14.11.2014** - theme is responsive now, need to check with search bar
+
 
 <h1>Theme: ModernDayMentality</h1>
 
