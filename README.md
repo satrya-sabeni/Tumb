@@ -28,6 +28,8 @@
 
 **14.11.2014** - theme is responsive now, need to check with search bar
 
+**18.11.2014** - added and styled pagination and overall minor fixes
+
 
 <h1>Theme: ModernDayMentality</h1>
 
