@@ -533,6 +533,11 @@
     .notes li span a{
         vertical-align:top;
     }
+    {block:PermalinkPage}
+    .like_and_reblog_buttons{
+      width:300px;
+    }
+    {/block:PermalinkPage}
 
     .like_and_reblog_buttons {
       list-style: none;
@@ -863,6 +868,13 @@
                 {block:Caption}
                   <div class="caption">{Caption}</div>
                 {/block:Caption}
+            </div>
+
+            <div class="permalike">
+              <ul class="like_and_reblog_buttons">
+                <li>{ReblogButton}</li>
+                <li>{LikeButton}</li>
+              </ul>
             </div>
 
             <div class="statusbar">
