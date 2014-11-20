@@ -8,7 +8,9 @@
 
 **22.09.2014** - Div set to 100% img, date and reblog buttons now in the div.
 
---------------------
+_______________________________________________________________________________
+
+<h1>Theme: Nara</h1>
 
 **30.09.2014** - Base structure is set, Masonry load needs to be fixed now.
 
@@ -29,6 +31,10 @@
 **14.11.2014** - theme is responsive now, need to check with search bar
 
 **18.11.2014** - added and styled pagination and overall minor fixes,added answer box and added google analytics option
+
+**20.11.2014** - Reblog buttons on permalink pages, borders can be turned on/ off
+
+_______________________________________________________________________________
 
 <h1>Theme: ModernDayMentality</h1>
 

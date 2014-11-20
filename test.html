@@ -47,6 +47,7 @@
     <meta name="if:Show date label in linkpost" content="1"/>
     <meta name="if:Show date label in chatpost" content="1"/>
     <meta name="if:Show date label in photopost" content="1"/>
+    <meta name="if:Post border" content="1"/>
     <meta name="color:Posts background" content="#FFF"/>
     <meta name="color:Date label" content='#1b1b1b'/>
     <meta name="color:Date text" content="#8F8F8F"/>
@@ -131,6 +132,10 @@
         font-size:0.7em;
         color:#454141;
         letter-spacing:0.5px;
+    }
+    .quote blockquote{
+      font-size:1.4em;
+      color:#000;
     }
     iframe, img, embed, object, video {
         max-width: 100%;
@@ -241,16 +246,17 @@
     /*Article*/
     article {
         background: {color:Post color};
-        margin: 7px;/*{text:Post margin}*/
+        margin: 7px;
         padding: 0px;
-        background: #000;
 
         {block:IndexPage}
-        width: 450px;/*{text:Post width}*/
+        width: 450px;/
+        background: #000;
         {/block:IndexPage}
 
         {block:Permalink}
         width:600px;
+        background: #FFF;
         {/block:Permalink}
 
     }
@@ -309,13 +315,17 @@
     .quote{
       background:{color:Posts background};
       padding:20px 30px 30px;
+      {block:IfPostBorder}
       border:1px dotted {color:Textposts border color};
+      {/block:IfPostBorder}
     }
     .link{
       background:{color:Posts background};
       height:100%;
       padding:20px 30px;
+      {block:IfPostBorder}
       border:1px dotted {color:Textposts border color};
+      {block:IfPostBorder}
     }
     .link h1{
       margin:0;
@@ -338,7 +348,9 @@
     .text{
       background:{color:Posts background};
       padding:20px 30px;
+      {block:IfPostBorder}
       border:1px dotted {color:Textposts border color};
+      {/block:IfPostBorder}
     }
     {block:permalink}
     .text{
@@ -386,7 +398,9 @@
     }
     .chat{
       background:{color:Posts background};
+      {block:IfPostBorder}
       border:1px dotted {color:Textposts border color};
+      {/block:IfPostBorder}
       padding:20px 30px;
     }
     .chat ul li{
@@ -533,15 +547,22 @@
     .notes li span a{
         vertical-align:top;
     }
+    .permalike{
+      padding-left:30px;
+      padding-top:12px;
+      padding-bottom:12px;
+    }
     {block:PermalinkPage}
     .like_and_reblog_buttons{
-      width:300px;
+      width:220px;
     }
     {/block:PermalinkPage}
 
     .like_and_reblog_buttons {
       list-style: none;
+      {block:IndexPage}
       width:150px;
+      {/block:IndexPage}
       margin:5px auto;
     }
 
@@ -627,8 +648,12 @@
       margin:0 auto;
       font-family:"Open Sans",sans-serif;
       border:0;
+      color:#454141;
       padding:5px 10px;
       letter-spacing:1px;
+      -webkit-border-radius: 2px;
+      -moz-border-radius: 2px;
+      border-radius: 2px;
     }
     .answer{
       background:{color:Posts background};
@@ -670,6 +695,9 @@
       .photo ul.like_and_reblog_buttons{
         left:100px;
       }
+      .like_and_reblog_buttons {
+        display:block !important;
+      }
 
       {block:Permalink}
       article{
@@ -706,6 +734,9 @@
       .circle{
         right:75px;
       }
+      .like_and_reblog_buttons {
+        display:block !important;
+      }
     }
     @media screen and (min-width : 320px) and (max-width:480px){
       #content{
@@ -728,6 +759,9 @@
       }
       .search{
         display:none;
+      }
+      .like_and_reblog_buttons {
+        display:none !important;
       }
     }
     /*Custom CSS*/
