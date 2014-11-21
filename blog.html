@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <!--
+    Theme: Satrya
+    Base code: http:satrya-sabeni.com
+    Version: 1.0
+    -->
+
+    <!--OPTIONS-->
+    <meta name="if:Infinite scroll" content="1"/>
+    <meta name="text:Google Analytics ID" content=''/>
+    {block:Description}
+    <meta name="description" content="{MetaDescription}" />
+    {/block:Description}
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+    <title>{block:TagPage}{Tag} posts - {/block:TagPage} {block:SearchPage}{lang:Search results for SearchQuery} - {/block:SearchPage}{block:PostSummary}{PostSummary} - {/block:PostSummary}{Title}</title>
+    <link rel="shortcut icon" href="{Favicon}">
+    <link rel="alternate" type="application/rss+xml" href="{RSS}">
+    <link href="http://static.tumblr.com/wgijwsy/k1Hm9ei8b/normalize.css" rel="stylesheet" type="text/css" />
+    <link href='http://fonts.googleapis.com/css?family=Cardo:400,400italic,700' rel='stylesheet' type='text/css'>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <style type="text/css">
+    /*Basic styles*/
+    body{
+      font-family: 'Cardo', serif;
+      -webkit-font-smoothing:antialiased;
+      background:#0b0f11;
+      color:#fefefe;
+    }
+    a{
+      color:#fefefe;
+    }
+    article div{
+      font-size:2em;
+      line-height:1.4;
+      max-width:1000px;
+      margin:0 auto;
+
+      border-bottom:1px solid #FFF;
+    }
+    .container{
+      padding:0100px;
+    }
+    .source{
+      font-size:0.5em;
+      margin:40px;
+      color:#565656;
+      display:block;
+    }
+    .source a{
+      color:#565656;
+    }
+    .source p{
+      margin-top:0px;
+    }
+    .text p{
+      padding:0 40px 40px 40px;
+      text-decoration:none;
+    }
+    .text h1{
+      text-decoration:none;
+      font-size:1.3em;
+      margin:40px;
+    }
+    .text em{
+      font-style:normal;
+    }
+    .circle{
+      float:right;
+    }
+    .pagination{
+      width:400px;
+      margin:0 auto;
+      text-align:center;
+      margin-top:30px;
+    }
+    /* MEDIA QUERIES */
+    @media only screen and (max-device-width : 375px) {
+      .container{
+        padding:0 0 30px 0;
+      }
+      .pagination{
+        width:100%;
+      }
+      article div{
+        font-size:1.5em;
+        border-color:#565656;
+      }
+    }
+    @media only screen and (max-device-width : 360px) {
+      .container{
+        padding:0 0 30px 0;
+      }
+      .pagination{
+        width:100%;
+      }
+      article div{
+        font-size:1.5em;
+        border-color:#565656;
+      }
+    }
+    /*Custom CSS*/
+    {CustomCSS}
+    </style>
+    </head>
+    <body>
+      {block:IfSidebar}
+      <span class="sidebar-button fa fa-bars fa-2x"></span>
+        <div class="sidebar">
+          <img src="{PortraitURL-96}"/>
+          <p>Hello world</p>
+        </div>
+      {/block:IfSidebar}
+      <div class="container">
+        <!--Masthead-->
+        <header id="masthead">
+            <div id="header">
+                {block:IfHeaderSearchbar}
+                <form action="/search" method="get" class="search">
+                    <input type="text" name="q" value="{SearchQuery}" placeholder="tags" class="searchquery"/>
+                    <input type="submit" value="{lang:Search}" class="search-button"/>
+                </form>
+                {/block:IfHeaderSearchbar}
+            </div>
+            <!--Navigation-->
+            <nav>
+                <ul>
+                    {block:HasPages}
+                    {block:Pages}
+                    <li> <a href="{URL}">{Label}</a></li>
+                    {/block:Pages}
+                    {/block:HasPages}
+                    {block:SubmissionsEnabled}
+                    <li> <a href="/submit">{SubmitLabel}</a></li>
+                    {/block:SubmissionsEnabled}
+                    {block:AskEnabled}
+                    <li> <a href="/ask">{AskLabel}</a></li>
+                    {/block:AskEnabled}
+                </ul>
+            </nav>
+        </header>
+        <!--Content holder-->
+
+        <div id="content">
+        {block:Posts}
+
+        {block:Text}
+          <article>
+            <div class="text">
+                {block:Title}<h1 class="title">{Title}</h1>{/block:Title}
+                {Body}
+                {block:Date}
+                  {block:IfShowDateLabelInTextpost}<span class="date">{DayOfMonthWithZero} {MonthNumberWithZero} <span class="year">{ShortYear}</span></span>{/block:IfShowDateLabelInTextpost}
+                {/block:Date}
+                <!--<div class="likeReblogBlock">
+                  <ul class="like_and_reblog_buttons">
+                    <li>{ReblogButton color="grey"}</li>
+                    <li>{LikeButton color="grey"}</li>
+                  </ul>
+                </div>-->
+            </div>
+          </article>
+          {block:PermalinkPage}
+          <div class="contentInfo">
+              <div class="tagBox">
+                {block:HasTags}
+                  <ul id="tags">
+                    {block:Tags}
+                      <li class="fa fa-tag fa-lg"><a href="{TagURL}">{Tag}</a></li>
+                    {/block:Tags}
+                  </ul>
+                {/block:HasTags}
+              </div>
+
+          </div>
+            <div class="statusbar">
+                {block:PostNotes}
+                  {PostNotes}
+                {/block:PostNotes}
+            </div>
+          {/block:PermalinkPage}
+        {/block:Text}
+
+
+
+        {block:Quote}
+        <article>
+          <div class="quote">
+              <blockquote>"{Quote}"</blockquote>
+              {block:Source}<cite class="source"> {Source} </cite>{/block:Source}
+              {block:Date}
+                  {block:IfShowDateLabelInQuotepost}<span class="date">{DayOfMonthWithZero} {MonthNumberWithZero} {ShortYear}</span>{/block:IfShowDateLabelInQuotepost}
+              {/block:Date}
+              <!--<div class="likeReblogBlock">
+                <ul class="like_and_reblog_buttons">
+                  <li>{ReblogButton color="grey"}</li>
+                  <li>{LikeButton color="grey"}</li>
+                </ul>
+              </div>-->
+          </div>
+        </article>
+        {/block:Quote}
+
+        {block:Link}
+        <article>
+          <div class="link">
+              <h1 class="title"><a href="{URL}">www.{Host}</a></h1>
+              <p>{Name}</p>
+              {block:Description}
+                {Description}
+              {/block:Description}
+
+              {block:Date}
+                {block:IfShowDateLabelInLinkpost}<span class="date">{DayOfMonthWithZero} {MonthNumberWithZero} <span class="year">{ShortYear}</span></span>{/block:IfShowDateLabelInLinkpost}
+              {/block:Date}
+              <div class="likeReblogBlock">
+                <ul class="like_and_reblog_buttons">
+                  <li>{ReblogButton color="grey"}</li>
+                  <li>{LikeButton color="grey"}</li>
+                </ul>
+              </div>
+          </div>
+        </article>
+        {/block:Link}
+
+        {block:Answer}
+        <article>
+        <div class="answer">
+            <h1 class="title">{Question}</h1>
+            <div class="user"><img src="{AskerPortraitURL-96}"/><p>{Asker}</p></div>
+            {Answer}
+        </div>
+        <article>
+        {/block:Answer}
+        <!--Post footer (tags and notes) on displayed on permalink pages-->
+      <!--Close of article-->
+
+        {/block:Posts}
+
+      </div><!--Close of contentdiv-->
+        <a href="#top"><div class="circle"><span class="fa fa-chevron-up"></span></div></a>
+
+        <!--Pagination: previous/next page links-->
+        {block:Pagination}
+        <div class="pagination">
+          {block:PreviousPage}<a href="{PreviousPage}">Previous page</a>{/block:PreviousPage}
+            {block:JumpPagination}
+              {block:CurrentPage}
+                <span class="current_page">{PageNumber}</span>
+              {/block:CurrentPage}
+              {block:JumpPage}
+                <a class="jump_page" href="{URL}">{PageNumber}</a>
+              {/block:JumpPage}
+            {/block:JumpPagination}
+          {block:NextPage}<a href="{NextPage}">Next page</a>{/block:NextPage}
+        </div>
+        {/block:Pagination}
+      </div><!--end of .container div-->
+    <!--Links to jQuery library, Masonry, infinite scroll and imagesLoaded-->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    {block:IfInfiniteScroll}
+    <script src="http://static.tumblr.com/wgijwsy/u2vm2hxv6/jquery.infinitescroll.min.js"></script>
+    <script src="http://static.tumblr.com/iwtk77u/Yhym2yygt/jquery.imagesloaded.min.js"></script>
+    {/block:IfInfiniteScroll}
+    <!--Code for infinite scroll and grid layout-->
+    <script>
+    (function() {
+        var $tumblelog = $('#content');
+        {block:IfInfiniteScroll}
+        $tumblelog.infinitescroll({
+            navSelector  : ".pagination",
+            nextSelector : ".pagination a:first",
+            itemSelector : "article",
+            bufferPx     : 50,
+            done : "",
+            loading: {
+                finishedMsg: "<p> </p>",
+                img : " ",
+                msg: null,
+                msgText: "<p> </p>"
+            },
+        },
+          function( newElements ) {
+                var $newElems = $( newElements ).css({ opacity: 0 });
+                $newElems.imagesLoaded(function(){
+                    $newElems.animate({ opacity: 1 });
+                    $tumblelog.masonry( 'appended', $newElems);
+                });
+              }
+        );
+
+        {/block:IfInfiniteScroll}
+    })();
+
+    $(document).ready(function(){
+
+    function sidebar(){
+      if($('.container').css('left') === '0px'){
+      $('.container').animate({"left":"300px"},"fast");
+      $('.sidebar-button').animate({"left":"310px"},"fast");
+      $('.sidebar').animate({"left":"0px"},"fast");
+      }
+      else {
+      $('.container').animate({"left":"0px"},"fast");
+      $('.sidebar-button').animate({"left":"10px"},"fast");
+      $('.sidebar').animate({"left":"-300px"},"fast");
+      }
+    }
+
+    $('a[href=#top]').click(function(){
+        $('html, body').animate({scrollTop:0}, 'slow');
+        return false;
+    });
+
+        $(window).scroll(function(){
+          if ($(window).scrollTop() > 1200){
+            $('.circle').fadeIn("fast");
+          } else {
+            $('.circle').fadeOut("fast");
+          }
+        });
+
+    });/*end document ready*/
+    </script>
+    <!--For users adding Google Analytics ID-->
+    <script>
+    /*var _gaq=[['_setAccount','{text:Google Analytics ID}'],['_trackPageview']];
+    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+    g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g,s)}(document,'script'));*/
+    </script>
+    </body>
+</html>
