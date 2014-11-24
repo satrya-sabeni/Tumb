@@ -788,6 +788,7 @@ iframe.photoset {
 <body>
   <!-- sidebar menu -->
   <aside class="sidebar">
+    <span class="sidebar-button fa fa-bars fa-2x"></span>
     <img src="{PortraitURL-96}" alt="{Title}" />
     <p>{text:About}</p>
     <ul>
@@ -796,10 +797,10 @@ iframe.photoset {
       <li><a href="{URL}">{Label}</a></li>
       {/block:Pages}
       {/block:HasPages}
-      {block:AskEnabled}
-      <li class="ask"><a href="/ask">{block:English}Ask me anything{/block:English}</a></li>
-      {/block:AskEnabled}
     </ul>
+    {block:AskEnabled}
+    <a href="/ask"><button class="ask">{block:English}Ask me anything{/block:English}</button></a>
+    {/block:AskEnabled}
   </aside>
   <!-- / sidebar -->
 
@@ -808,7 +809,7 @@ iframe.photoset {
 
     <!-- header -->
     <header id="masthead">
-      <button class="sidebar-button fa fa-bars fa-2x"></button>
+      <span class="sidebar-button fa fa-bars fa-2x"></span>
       <div id="header">
         {block:IfHeaderImage}
         <a href="{BlogURL}"><img src="{image:Header image}"/></a>
@@ -1052,25 +1053,6 @@ iframe.photoset {
           </div>
         </article>
         {/block:Answer}
-
-        <!--{block:Photoset}
-        {block:Photos}
-        <img src="{PhotoURL-500}"
-        width="{PhotoWidth-500}"height="{PhotoHeight-500}" />
-
-        {block:Caption}
-        {Caption}
-        {/block:Caption}
-
-        {block:Exif}
-
-        {/block:Exif}
-        {/block:Photos}
-
-        {block:Caption}
-        {Caption}
-        {/block:Caption}
-        {/block:Photoset}-->
 
         {/block:Posts}
         <!-- / POSTS -->
