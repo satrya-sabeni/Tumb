@@ -34,6 +34,8 @@ _______________________________________________________________________________
 
 **20.11.2014** - Reblog buttons on permalink pages, borders can be turned on/ off
 
+**24.11.2014** - Nara may very well be finished....
+
 _______________________________________________________________________________
 
 <h1>Theme: ModernDayMentality</h1>
