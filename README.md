@@ -36,6 +36,8 @@ _______________________________________________________________________________
 
 **24.11.2014** - Nara may very well be finished....
 
+**01.12.2014** - Nara theme is doing well...added Photo caption on index option
+
 _______________________________________________________________________________
 
 <h1>Theme: ModernDayMentality</h1>
