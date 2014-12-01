@@ -269,6 +269,9 @@ article {
   {/block:Permalink}
 
 }
+.particle{
+  margin:0;
+}
 .photo {
   line-height:0;
   background:{color:Image fadeout color};
@@ -539,6 +542,7 @@ margin-right: 1%;
 }
 .incaption{
   display:none;
+  line-height:1.5;
   position:absolute;
   bottom:190px;
   width:250px;
@@ -598,7 +602,8 @@ margin-right: 1%;
   line-height:1.5;
   {/block:IndexPage}
 }
-.photo ul.like_and_reblog_buttons {
+.photo ul.like_and_reblog_buttons,
+.pset ul.like_and_reblog_buttons {
   list-style: none;
   float:right;
   width:150px;
@@ -619,6 +624,10 @@ margin-right: 1%;
   /*clear:both;*/
   background:#fff;
   height:100%;
+}
+.pset{
+  /*background:{color:Image fadeout color};*/
+  width:450px;
 }
 .likeReblogBlock ul.like_and_reblog_buttons{
   display:none;
@@ -958,6 +967,65 @@ iframe.photoset {
       {/block:PermalinkPage}
       {/block:Photo}
 
+      <!--Photset-->
+      {block:Photoset}
+      <article>
+        <div class="pset">
+          {block:Date}
+            {block:IfShowDateLabelInTextpost}<span class="date">{DayOfMonthWithZero} {MonthNumberWithZero} <span class="year">{ShortYear}</span> </span>{/block:IfShowDateLabelInTextpost}
+          {/block:Date}
+
+          <a href="{Permalink}" style="display:block;z-index:200">{Photoset-500}</a>
+          <!--<div class="caption">{Caption}</div>-->
+          {block:IndexPage}
+          {block:HasTags}
+          {block:IfShowPhotoCaption}
+          {block:Caption}
+          <div class="incaption">{Caption}</div>
+          {/block:Caption}
+          {/block:IfShowPhotoCaption}
+          <ul id="tags">
+            {block:Tags}
+            <li class="fa fa-tag fa-lg"><a href="{TagURL}">{Tag}</a></li>
+            {/block:Tags}
+          </ul>
+          {/block:HasTags}
+          <ul class="like_and_reblog_buttons">
+            <li>{ReblogButton}</li>
+            <li>{LikeButton} {block:IfShowNoteCount}{block:NoteCount} {NoteCount} {/block:NoteCount} {/block:IfShowNoteCount}</li>
+          </ul>
+          {/block:IndexPage}
+        </div>
+      </article>
+      {block:PermalinkPage}
+      <div class="contentInfo">
+        <div class="tagBox">
+          {block:HasTags}
+          <ul id="tags">
+            {block:Tags}
+            <li class="fa fa-tag fa-lg"><a href="{TagURL}">{Tag}</a></li>
+            {/block:Tags}
+          </ul>
+          {/block:HasTags}
+        </div>
+        {block:Caption}
+        <div class="caption">{Caption}</div>
+        {/block:Caption}
+      </div>
+      <div class="permalike">
+        <ul class="like_and_reblog_buttons">
+          <li>{ReblogButton}</li>
+          <li>{LikeButton} {block:NoteCount} {NoteCount} {/block:NoteCount}</li>
+        </ul>
+      </div>
+      <div class="statusbar">
+        {block:PostNotes}
+        {PostNotes}
+        {/block:PostNotes}
+      </div>
+      {/block:PermalinkPage}
+      {/block:Photoset}
+
       <!-- quote post -->
       {block:Quote}
       <article>
@@ -1195,6 +1263,19 @@ iframe.photoset {
               $(this).find(".incaption").fadeOut();
             }
           );
+          /*photoset*/
+          $('.pset').hover(
+            function(){
+              $(".pset iframe").fadeTo(200,0.15);
+              $(".pset").css("background","#000");
+              $(this).find("ul.like_and_reblog_buttons").fadeIn();
+            },
+            function(){
+              $(".pset iframe").fadeTo(200,1);
+              $(".pset").css("background","none");
+              $(this).find("ul.like_and_reblog_buttons").fadeOut();
+            }
+          );
         }
         );
         {/block:IfInfiniteScroll}
@@ -1225,7 +1306,26 @@ iframe.photoset {
         function(){
           $(this).children("a").children("img").fadeTo(200,1);
         }
-        )
+        );
+
+        $('.pset').hover(
+          function(){
+            $(".pset iframe").fadeTo(200,0.15);
+            $(".pset").css("background","#000");
+            $(this).find(".incaption").fadeIn();
+            $(this).find("ul.like_and_reblog_buttons").fadeIn();
+            $(this).find("#tags").fadeIn();
+          },
+          function(){
+            $(".pset iframe").fadeTo(200,1);
+            $(".pset").css("background","none");
+            $(this).find(".incaption").fadeOut();
+            $(this).find("ul.like_and_reblog_buttons").fadeOut();
+            $(this).find("#tags").fadeOut();
+          }
+        );
+
+
         {/block:IndexPage}
 
         {block:IndexPage}
@@ -1323,6 +1423,19 @@ iframe.photoset {
           $('.sidebar-button').animate({"left":"10px"},"fast");
           $('.sidebar').animate({"left":"-300px"},"fast");
         }
+
+        function photosetResize() {
+          $('iframe.photoset').each(function(){
+            var newSize = 450;
+            var newSrc = $(this).attr('src').replace('500',newSize);
+            $(this).attr('src', newSrc).width(newSize);
+            var high = $(this).css('height');
+            var calculate = parseInt(high, 10)* newSize/500;
+            $(this).css('height', calculate);
+          });
+        }
+        photosetResize();
+
       });/*end document ready*/
 
     </script>
