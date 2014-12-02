@@ -4,7 +4,7 @@
   <!--
   @Theme: Nara
   @Author: Satrya Sabeni
-  @Version: 1.0.1
+  @Version: 1.1.1
 -->
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -56,6 +56,7 @@
 <meta name="color:Ask button" content="#CCC"/>
 <meta name="color:Ask button text" content="#1b1b1b"/>
 <meta name="text:About" content="About"/>
+<meta name="text:Ask button text" content="Ask me anything"/>
 
 <!--post block options-->
 <meta name="if:Show date label in textpost" content="1"/>
@@ -78,10 +79,15 @@
 <meta name="color:Chatpost text even" content="1d1818"/>
 <meta name="color:Photo Caption indexpage text" content="#CCC"/>
 <meta name="color:Photo Caption indexpage link" content="#CCC"/>
+<meta name="color:Photoset icon color" content="#CCC"/>
 
 <!--permalink page options-->
 <meta name="color:Permalinkpage taglabel icon" content="#CCC"/>
 <meta name="color:Permalinkpage taglabel text" content="#CCC"/>
+<meta name="color:Permalinkpage Statusbar text" content="#1B1B1B"/>
+<meta name="color:Permalinkpage Statusbar link text" content="#796060"/>
+<meta name="color:Permalinkpage Caption text" content="1B1B1B"/>
+<meta name="color:Permalinkpage Caption link text" content="#796060"/>
 
 <meta name="if:Infinite scroll" content="1"/>
 <meta name="text:Google Analytics Trackingcode" content=''/>
@@ -541,6 +547,14 @@ margin-right: 1%;
   margin:0 30px;
   padding:20px 15px;
 }
+{block:Permalink}
+.caption{
+  color:{color:Permalinkpage Caption text};
+}
+.caption a{
+  color:{color:Permalinkpage Caption link text};
+}
+{/block:Permalink}
 .incaption{
   display:none;
   line-height:1.5;
@@ -628,14 +642,14 @@ margin-right: 1%;
 }
 {block:IndexPage}
 .pset{
-  /*background:{color:Image fadeout color};*/
+  background:{color:Image fadeout color};
   width:450px;
 }
 .pset-icon{
   position:absolute;
   top:15px;
   left:15px;
-  color:#CCC;
+  color:{color:Photoset icon color};
   display:none;
   z-index:100;
 }
@@ -676,6 +690,10 @@ iframe.photoset {
   margin:7px 0;
   height:550px;
   overflow:scroll;
+  color:{color:Permalinkpage Statusbar text};
+}
+.statusbar a{
+  color:{color:Permalinkpage Statusbar link text};
 }
 /*Navigation, ScrollToTop*/
 .circle {
@@ -862,7 +880,7 @@ iframe.photoset {
       {/block:HasPages}
     </ul>
     {block:AskEnabled}
-    <a href="/ask"><button class="ask">{block:English}Ask me anything{/block:English}</button></a>
+    <a href="/ask"><button class="ask">{block:English}{text:Ask button text}{/block:English}</button></a>
     {/block:AskEnabled}
   </aside>
   <!-- / sidebar -->
@@ -901,7 +919,7 @@ iframe.photoset {
 
       <!-- text post -->
       {block:Text}
-      <article>
+      <article id="{PostID}">
         <div class="text">
           {block:Title}<h1 class="title">{Title}</h1>{/block:Title}
           {Body}
@@ -939,7 +957,7 @@ iframe.photoset {
 
       <!-- photo post -->
       {block:Photo}
-      <article>
+      <article id="{PostID}">
         <div class="photo">
           {block:IndexPage}
           <a href="{Permalink}"><img src="{PhotoURL-500}" alt="{PhotoAlt}"/></a>
@@ -1004,7 +1022,7 @@ iframe.photoset {
 
       <!--Photset-->
       {block:Photoset}
-      <article>
+      <article id="{PostID}">
         <div class="pset">
           {block:IndexPage}
           <i class="fa fa-th-large fa-3x pset-icon"><p>{PhotoCount}</p></i>
@@ -1075,7 +1093,7 @@ iframe.photoset {
 
       <!-- quote post -->
       {block:Quote}
-      <article>
+      <article id="{PostID}">
         <div class="quote">
           <blockquote>"{Quote}"</blockquote>
           {block:Source}
@@ -1098,7 +1116,7 @@ iframe.photoset {
 
       <!-- link post -->
       {block:Link}
-      <article>
+      <article id="{PostID}">
         <div class="link">
           <h1 class="title"><a href="{URL}">www.{Host}</a></h1>
           <p>{Name}</p>
@@ -1122,7 +1140,7 @@ iframe.photoset {
 
       <!-- chat post -->
       {block:Chat}
-      <article>
+      <article id="{PostID}">
         <div class="chat">
           <h1><a href="{Permalink}">{block:Title}{Title}{/block:Title}</a></h1>
           <ul>
@@ -1163,7 +1181,7 @@ iframe.photoset {
 
       <!-- audio post -->
       {block:Audio}
-      <article>
+      <article id="{PostID}">
         <div class="audio">
           <div class="albumart">{block:AlbumArt}<img src="{AlbumArtURL}" width="500" height="500"/>{/block:AlbumArt}</div>
           <div class="player">{AudioPlayerBlack}</div>
@@ -1174,7 +1192,7 @@ iframe.photoset {
 
       <!-- video post -->
       {block:Video}
-      <article>
+      <article id="{PostID}">
         <div class="video">
           {Video-500}
         </div>
@@ -1183,7 +1201,7 @@ iframe.photoset {
 
       <!-- answer post -->
       {block:Answer}
-      <article>
+      <article id="{PostID}">
         <div class="answer">
           <div class="user"><img src="{AskerPortraitURL-64}" class="profile"/>
             <h3>{Asker}</h3></div>
@@ -1244,6 +1262,17 @@ iframe.photoset {
         },
         function( newElements ) {
           var $newElems = $( newElements ).css({ opacity: 0 });
+
+          // Create Array of $newElems IDs
+          var $newElemsIDs = $newElems.map(function () {
+              return this.id;
+          }).get();
+
+          console.log($newElems, $newElemsIDs);
+
+          Tumblr.LikeButton.get_status_by_post_ids($newElemsIDs);
+
+
           $newElems.imagesLoaded(function(){
             $newElems.animate({ opacity: 1 });
             $tumblelog.masonry( 'appended', $newElems);
@@ -1313,20 +1342,18 @@ iframe.photoset {
           /*photoset*/
           $('.pset').hover(
             function(){
-              $(".psetimg-holder").fadeTo(200,0.15);
-              $(".pset").css("background","{color:Image fadeout color}");
+              $(this).find(".psetimg-holder").fadeTo(200,0.15);
               $(this).find(".incaption").fadeIn();
               $(this).find("ul.like_and_reblog_buttons").fadeIn();
               $(this).find("#tags").fadeIn();
-              $('.pset-icon').fadeIn();
+              $(this).find('i').fadeIn();
             },
             function(){
-              $(".psetimg-holder").fadeTo(200,1);
-              $(".pset").css("background","none");
+              $(this).find(".psetimg-holder").fadeTo(200,1);
               $(this).find(".incaption").fadeOut();
               $(this).find("ul.like_and_reblog_buttons").fadeOut();
               $(this).find("#tags").fadeOut();
-              $('.pset-icon').fadeOut();
+              $(this).find('i').fadeOut();
             }
           );
         }
@@ -1364,7 +1391,6 @@ iframe.photoset {
         $('.pset').hover(
           function(){
             $(this).find(".psetimg-holder").fadeTo(200,0.15);
-            $(this).css("background","{color:Image fadeout color}");
             $(this).find(".incaption").fadeIn();
             $(this).find("ul.like_and_reblog_buttons").fadeIn();
             $(this).find("#tags").fadeIn();
@@ -1372,7 +1398,6 @@ iframe.photoset {
           },
           function(){
             $(this).find(".psetimg-holder").fadeTo(200,1);
-            $(this).css("background","none");
             $(this).find(".incaption").fadeOut();
             $(this).find("ul.like_and_reblog_buttons").fadeOut();
             $(this).find("#tags").fadeOut();

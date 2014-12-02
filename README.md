@@ -38,7 +38,7 @@ _______________________________________________________________________________
 
 **01.12.2014** - Nara theme is doing well...added Photo caption on index option
 
-**02.12.2014** - Photoset post is FIXED
+**02.12.2014** - Photoset post is FIXED | reload post Notes after infinite scroll FIXED | Caption options for permalink | text for ask button now custimizible
 
 _______________________________________________________________________________
 
