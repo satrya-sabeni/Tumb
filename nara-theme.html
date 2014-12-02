@@ -269,6 +269,9 @@ article {
   {/block:Permalink}
 
 }
+.particle{
+  margin:0;
+}
 .photo {
   line-height:0;
   background:{color:Image fadeout color};
@@ -283,6 +286,7 @@ span.date{
   float:left;
   font-family: 'Open Sans', sans-serif;
   position:absolute;
+  z-index:100;
   background:{color:Date label};
   text-align:center;
   height:17px;
@@ -539,6 +543,7 @@ margin-right: 1%;
 }
 .incaption{
   display:none;
+  line-height:1.5;
   position:absolute;
   bottom:190px;
   width:250px;
@@ -598,7 +603,8 @@ margin-right: 1%;
   line-height:1.5;
   {/block:IndexPage}
 }
-.photo ul.like_and_reblog_buttons {
+.photo ul.like_and_reblog_buttons,
+.pset ul.like_and_reblog_buttons {
   list-style: none;
   float:right;
   width:150px;
@@ -620,6 +626,44 @@ margin-right: 1%;
   background:#fff;
   height:100%;
 }
+{block:IndexPage}
+.pset{
+  /*background:{color:Image fadeout color};*/
+  width:450px;
+}
+.pset-icon{
+  position:absolute;
+  top:15px;
+  left:15px;
+  color:#CCC;
+  display:none;
+  z-index:100;
+}
+.pset-icon p{
+  font-size:0.35em;
+  position:relative;
+  left:14px;
+  bottom:10px;
+}
+{/block:IndexPage}
+{block:PermalinkPage}
+.pset{
+  width:600px;
+}
+{/block:PermalinkPage}
+
+.psetimg{
+ margin-top:-5px;
+ {block:IndexPage}
+ display:none;
+ {/block:IndexPage}
+ {block:PermalinkPage}
+ display:block;
+ {/block:PermalinkPage}
+}
+/*.psetimg-holder:first-child img{
+    display: block;
+}*/
 .likeReblogBlock ul.like_and_reblog_buttons{
   display:none;
 }
@@ -958,6 +1002,77 @@ iframe.photoset {
       {/block:PermalinkPage}
       {/block:Photo}
 
+      <!--Photset-->
+      {block:Photoset}
+      <article>
+        <div class="pset">
+          {block:IndexPage}
+          <i class="fa fa-th-large fa-3x pset-icon"><p>{PhotoCount}</p></i>
+          {/block:IndexPage}
+
+          {block:Date}
+            {block:IfShowDateLabelInTextpost}<span class="date">{DayOfMonthWithZero} {MonthNumberWithZero} <span class="year">{ShortYear}</span> </span>{/block:IfShowDateLabelInTextpost}
+          {/block:Date}
+
+          {block:IndexPage}<a href="{Permalink}" style="display:block">{/block:IndexPage}
+            <div class="psetimg-holder">
+              {block:Photos}
+                {block:IndexPage}<img src="{PhotoURL-500}" class="psetimg"/>{/block:IndexPage}
+                {block:PermalinkPage}<a href="{PhotoURL-1280}" target="_blank"><img src="{PhotoURL-1280}" class="psetimg"/></a>{/block:PermalinkPage}
+              {/block:Photos}
+            </div>
+          {block:IndexPage}</a>{/block:IndexPage}
+
+
+          {block:IndexPage}
+          {block:HasTags}
+          {block:IfShowPhotoCaption}
+          {block:Caption}
+          <div class="incaption">{Caption}</div>
+          {/block:Caption}
+          {/block:IfShowPhotoCaption}
+          <ul id="tags">
+            {block:Tags}
+            <li class="fa fa-tag fa-lg"><a href="{TagURL}">{Tag}</a></li>
+            {/block:Tags}
+          </ul>
+          {/block:HasTags}
+          <ul class="like_and_reblog_buttons">
+            <li>{ReblogButton}</li>
+            <li>{LikeButton} {block:IfShowNoteCount}{block:NoteCount} {NoteCount} {/block:NoteCount} {/block:IfShowNoteCount}</li>
+          </ul>
+          {/block:IndexPage}
+        </div>
+      </article>
+      {block:PermalinkPage}<!-- Permalink Photoset-->
+      <div class="contentInfo">
+        <div class="tagBox">
+          {block:HasTags}
+          <ul id="tags">
+            {block:Tags}
+            <li class="fa fa-tag fa-lg"><a href="{TagURL}">{Tag}</a></li>
+            {/block:Tags}
+          </ul>
+          {/block:HasTags}
+        </div>
+        {block:Caption}
+        <div class="caption">{Caption}</div>
+        {/block:Caption}
+      </div>
+      <div class="permalike">
+        <ul class="like_and_reblog_buttons">
+          <li>{ReblogButton}</li>
+          <li>{LikeButton} {block:NoteCount} {NoteCount} {/block:NoteCount}</li>
+        </ul>
+      </div>
+      <div class="statusbar">
+        {block:PostNotes}
+        {PostNotes}
+        {/block:PostNotes}
+      </div>
+      {/block:PermalinkPage}
+      {/block:Photoset}
+
       <!-- quote post -->
       {block:Quote}
       <article>
@@ -1195,6 +1310,25 @@ iframe.photoset {
               $(this).find(".incaption").fadeOut();
             }
           );
+          /*photoset*/
+          $('.pset').hover(
+            function(){
+              $(".psetimg-holder").fadeTo(200,0.15);
+              $(".pset").css("background","{color:Image fadeout color}");
+              $(this).find(".incaption").fadeIn();
+              $(this).find("ul.like_and_reblog_buttons").fadeIn();
+              $(this).find("#tags").fadeIn();
+              $('.pset-icon').fadeIn();
+            },
+            function(){
+              $(".psetimg-holder").fadeTo(200,1);
+              $(".pset").css("background","none");
+              $(this).find(".incaption").fadeOut();
+              $(this).find("ul.like_and_reblog_buttons").fadeOut();
+              $(this).find("#tags").fadeOut();
+              $('.pset-icon').fadeOut();
+            }
+          );
         }
         );
         {/block:IfInfiniteScroll}
@@ -1225,7 +1359,28 @@ iframe.photoset {
         function(){
           $(this).children("a").children("img").fadeTo(200,1);
         }
-        )
+        );
+
+        $('.pset').hover(
+          function(){
+            $(this).find(".psetimg-holder").fadeTo(200,0.15);
+            $(this).css("background","{color:Image fadeout color}");
+            $(this).find(".incaption").fadeIn();
+            $(this).find("ul.like_and_reblog_buttons").fadeIn();
+            $(this).find("#tags").fadeIn();
+            $(this).find('i').fadeIn();
+          },
+          function(){
+            $(this).find(".psetimg-holder").fadeTo(200,1);
+            $(this).css("background","none");
+            $(this).find(".incaption").fadeOut();
+            $(this).find("ul.like_and_reblog_buttons").fadeOut();
+            $(this).find("#tags").fadeOut();
+            $(this).find('i').fadeOut();
+          }
+        );
+
+
         {/block:IndexPage}
 
         {block:IndexPage}
@@ -1323,6 +1478,23 @@ iframe.photoset {
           $('.sidebar-button').animate({"left":"10px"},"fast");
           $('.sidebar').animate({"left":"-300px"},"fast");
         }
+
+        function photosetResize() {
+          $('iframe.photoset').each(function(){
+            var newSize = 450;
+            var newSrc = $(this).attr('src').replace('500',newSize);
+            $(this).attr('src', newSrc).width(newSize);
+            var high = $(this).css('height');
+            var calculate = parseInt(high, 10)* newSize/500;
+            $(this).css('height', calculate);
+          });
+        }
+        photosetResize();
+
+        {block:IndexPage}
+        $(".psetimg-holder img:first-child").css("display","block");
+        {/block:IndexPage}
+
       });/*end document ready*/
 
     </script>
