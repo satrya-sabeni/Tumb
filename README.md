@@ -40,6 +40,8 @@ _______________________________________________________________________________
 
 **02.12.2014** - Photoset post is FIXED | reload post Notes after infinite scroll FIXED | Caption options for permalink | text for ask button now custimizible
 
+**03.12.2014** - small img center now in photo or pset boxes
+
 _______________________________________________________________________________
 
 <h1>Theme: ModernDayMentality</h1>

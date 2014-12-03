@@ -285,6 +285,10 @@ article {
   width:600px;
   {/block:Permalink}
 }
+.img-center{
+  display:block;
+  margin:0 auto;
+}
 
 span.date{
   font-size:10px;
@@ -960,7 +964,7 @@ iframe.photoset {
       <article id="{PostID}">
         <div class="photo">
           {block:IndexPage}
-          <a href="{Permalink}"><img src="{PhotoURL-500}" alt="{PhotoAlt}"/></a>
+          <a href="{Permalink}"><img src="{PhotoURL-500}" alt="{PhotoAlt}" class="img-center"/></a>
           {/block:IndexPage}
 
           {block:Date}
@@ -987,7 +991,7 @@ iframe.photoset {
           {/block:IndexPage}
 
           {block:PermalinkPage}
-          {LinkOpenTag}<img src="{PhotoURL-1280}" alt="{PhotoAlt}" style="width:600px"/>{LinkCloseTag}
+          {LinkOpenTag}<img src="{PhotoURL-1280}" class="img-center" alt="{PhotoAlt}" style="width:600px"/>{LinkCloseTag}
           {/block:PermalinkPage}
         </div>
       </article>
@@ -1035,8 +1039,8 @@ iframe.photoset {
           {block:IndexPage}<a href="{Permalink}" style="display:block">{/block:IndexPage}
             <div class="psetimg-holder">
               {block:Photos}
-                {block:IndexPage}<img src="{PhotoURL-500}" class="psetimg"/>{/block:IndexPage}
-                {block:PermalinkPage}<a href="{PhotoURL-1280}" target="_blank"><img src="{PhotoURL-1280}" class="psetimg"/></a>{/block:PermalinkPage}
+                {block:IndexPage}<img src="{PhotoURL-500}" class="psetimg img-center"/>{/block:IndexPage}
+                {block:PermalinkPage}<a href="{PhotoURL-1280}" target="_blank"><img src="{PhotoURL-1280}" class="psetimg img-center"/></a>{/block:PermalinkPage}
               {/block:Photos}
             </div>
           {block:IndexPage}</a>{/block:IndexPage}
